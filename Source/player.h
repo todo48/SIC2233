@@ -23,7 +23,7 @@ public:
 	void DrawDebugGUI();	
 
 	////移動入力処理
-	//void InputMove(float elapsedTime);
+	void InputMove(float elapsedTime);
 
 	//デバッグプリミティブ描画
 	void DrawDebugPrimitive();
@@ -59,4 +59,7 @@ private:
 	float jumpSpeed = 20.0f;
 	int   jumpCount = 0;
 	int   jumpLimit = 2;
+
+	int SwingZone = 0;
+	bool isSwing = false;
 };

@@ -11,6 +11,7 @@
 void SceneResult::Initialize()
 {
     //スプライト初期化
+    sprites[0] = std::make_unique<Sprite>("Data/Fonts/font3.png");
     Result = new Sprite("Data/Sprite/Result.png");
 }
 
@@ -89,5 +90,10 @@ void SceneResult::Render()
             0, 0, textureWidth, textureHeight,
             0,
             1, 1, 1, 1);
+
+        int i = 45;
+
+        //sprites[0]->textout(dc, i, 0, 0, 16, 16, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(i), 200, 200, 32, 32, 1, 1, 1, 1);
     }
 }

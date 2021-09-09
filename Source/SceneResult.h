@@ -22,6 +22,13 @@ public:
     //描画処理
     void Render() override;
 
+    //DirectX11で利用する様々なリソースを作成するやつ
+    Microsoft::WRL::ComPtr<ID3D11Device>device;
+    //ID3D11DeviceContext* immediate_context;
+    Microsoft::WRL::ComPtr<ID3D11DeviceContext> immediate_context;
+    std::unique_ptr<Sprite>sprites[8];
+
+
 private:
     //std::unique_ptr<AudioSource> audio_Stage = nullptr;
     //std::unique_ptr<AudioSource> audio_TimeUp = nullptr;

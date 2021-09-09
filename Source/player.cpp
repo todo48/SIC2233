@@ -30,7 +30,7 @@ Player::~Player()
 void Player::Update(float elapsedTime)
 {
 	////移動入力処理
-	//InputMove(elapsedTime);
+	InputMove(elapsedTime);
 
 	////ジャンプ入力処理
 	//InputJump();
@@ -97,15 +97,69 @@ void Player::DrawDebugGUI()
 
 
 
-//void Player::InputMove(float elapsedTime)
-//{
-//	//進行ベクトル取得
-//	DirectX::XMFLOAT3 moveVec = GetMoveVec();
-//	//移動処理
-//	Move(moveVec.x, moveVec.z, moveSpeed);
-//	//旋回処理
-//	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
-//}
+void Player::InputMove(float elapsedTime)
+{
+	
+	GamePad& gamePad = Input::Instance().GetGamePad();
+	for (int i = 0; i < 9; i++)
+	{
+		if (gamePad.GetButtonDown() & (0 << i))
+		{
+			isSwing = true;
+			switch (i)
+			{
+				//BTN_UP(Wキー)
+			case 0:
+				isSwing = false;
+				SwingZone = 0;
+				break;
+				//BTN_RIGHT(Dキー)
+			case 1:
+				isSwing = false;
+				SwingZone = 1;
+				break;
+				//BTN_DOWN(Sキー)
+			case 2:
+				isSwing = false;
+				SwingZone = 2;
+				break;
+				//BTN_LEFT(Aキー)
+			case 3:
+				isSwing = false;
+				SwingZone = 3;
+				break;
+				//Zキー
+			case 4:
+				isSwing = false;
+				SwingZone = 4;
+				break;
+				//Xキー
+			case 5:
+				isSwing = false;
+				break;
+				SwingZone = 5;
+				//Cキー
+			case 6:
+				isSwing = false;
+				SwingZone = 6;
+				break;
+				//Qキー
+			case 7:
+				isSwing = false;
+				SwingZone = 7;
+				break;
+				//Eキー
+			case 8:
+				isSwing = false;
+				SwingZone = 8;
+				break;
+			}
+		}
+	}
+
+
+
+}
 
 //DirectX::XMFLOAT3 Player::GetMoveVec()const
 //{

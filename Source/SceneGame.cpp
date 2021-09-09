@@ -133,6 +133,7 @@ void SceneGame::Render()
 	rc.view = camera.GetView();
 	rc.projection = camera.GetProjection();
 
+	
 	// 3Dモデル描画
 	{
 		Shader* shader = graphics.GetShader();
@@ -149,6 +150,22 @@ void SceneGame::Render()
 
 		shader->End(dc);
 	}
+
+	// 2Dスプライト描画
+	{
+		float screenWidth = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth = static_cast<float>(scenegame_ui->GetTextureWidth());
+		float textureHeight = static_cast<float>(scenegame_ui->GetTextureHeight());
+		scenegame_ui->Render(dc,
+			0, 0, screenWidth, screenHeight,
+			0, 0, textureWidth, textureHeight,
+			0,
+			1, 1, 1, 1);
+	}
+
+
+
 
 	//3Dエフェクト描画
 	{
@@ -170,19 +187,7 @@ void SceneGame::Render()
 		graphics.GetDebugRenderer()->Render(dc, rc.view, rc.projection);
 	}
 
-	// 2Dスプライト描画
-	{
-		float screenWidth = static_cast<float>(graphics.GetScreenWidth());
-		float screenHeight = static_cast<float>(graphics.GetScreenHeight());
-		float textureWidth = static_cast<float>(scenegame_ui->GetTextureWidth());
-		float textureHeight = static_cast<float>(scenegame_ui->GetTextureHeight());
-		//タイトルスプライト描画
-		scenegame_ui->Render(dc,
-			0, 0, screenWidth, screenHeight,
-			0, 0, textureWidth, textureHeight,
-			0,
-			1, 1, 1, 1);
-	}
+	
 
 	// 2DデバッグGUI描画
 	{

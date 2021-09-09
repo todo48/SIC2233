@@ -6,27 +6,30 @@ using GamePadButton = unsigned int;
 class GamePad
 {
 public:
-	static const GamePadButton BTN_UP				= (1 <<  0);
-	static const GamePadButton BTN_RIGHT			= (1 <<  1);
-	static const GamePadButton BTN_DOWN				= (1 <<  2);
-	static const GamePadButton BTN_LEFT				= (1 <<  3);
-	static const GamePadButton BTN_A				= (1 <<  4);
-	static const GamePadButton BTN_B				= (1 <<  5);
-	static const GamePadButton BTN_X				= (1 <<  6);
-	static const GamePadButton BTN_Y				= (1 <<  7);
-	static const GamePadButton BTN_START			= (1 <<  8);
-	static const GamePadButton BTN_BACK				= (1 <<  9);
-	static const GamePadButton BTN_LEFT_THUMB		= (1 << 10);
-	static const GamePadButton BTN_RIGHT_THUMB		= (1 << 11);
-	static const GamePadButton BTN_LEFT_SHOULDER	= (1 << 12);
-	static const GamePadButton BTN_RIGHT_SHOULDER	= (1 << 13);
-	static const GamePadButton BTN_LEFT_TRIGGER		= (1 << 14);
-	static const GamePadButton BTN_RIGHT_TRIGGER	= (1 << 15);
+	static const GamePadButton BTN_UP = (1 << 0);
+	static const GamePadButton BTN_RIGHT = (1 << 1);
+	static const GamePadButton BTN_DOWN = (1 << 2);
+	static const GamePadButton BTN_LEFT = (1 << 3);
+	static const GamePadButton BTN_A = (1 << 4);
+	static const GamePadButton BTN_B = (1 << 5);
+	static const GamePadButton BTN_X = (1 << 6);
+	static const GamePadButton BTN_Q = (1 << 7);
+	static const GamePadButton BTN_E = (1 << 8);
+
+
+	static const GamePadButton BTN_BACK = (1 << 9);
+	static const GamePadButton BTN_LEFT_THUMB = (1 << 10);
+	static const GamePadButton BTN_RIGHT_THUMB = (1 << 11);
+	static const GamePadButton BTN_LEFT_SHOULDER = (1 << 12);
+	static const GamePadButton BTN_RIGHT_SHOULDER = (1 << 13);
+	static const GamePadButton BTN_LEFT_TRIGGER = (1 << 14);
+	static const GamePadButton BTN_RIGHT_TRIGGER = (1 << 15);
 
 	static const GamePadButton BTN_J				= (1 << 16);//J
 	static const GamePadButton BTN_SPACE			= (1 << 17);//SPACE
 
-
+	static const GamePadButton BTN_Y = (1 << 18);
+	static const GamePadButton BTN_START = (1 << 19);
 
 
 public:
