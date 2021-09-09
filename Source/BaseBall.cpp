@@ -3,7 +3,10 @@
 //コンストラクタ
 BaseBall::BaseBall(BallManager* manager):Ball(manager)
 {
+	model = new Model("Data/Model/SpikeBall/SpikeBall.mdl");
 
+	//モデルが小さいのでスケーリング
+	scale.x = scale.y = scale.z = 2.0f;
 }
 
 //デストラクタ
@@ -15,13 +18,13 @@ BaseBall::~BaseBall()
 //更新処理
 void BaseBall::Update(float elapsedTime)
 {
-	//寿命処理
-	lifeTimer -= elapsedTime;
-	if (lifeTimer <= 0)
-	{
-		//自分を削除
-		Destroy();
-	}
+	////寿命処理
+	//lifeTimer -= elapsedTime;
+	//if (lifeTimer <= 0)
+	//{
+	//	//自分を削除
+	//	Destroy();
+	//}
 
 	//移動
 	{

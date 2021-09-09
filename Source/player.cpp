@@ -29,6 +29,11 @@ Player::~Player()
 //更新処理
 void Player::Update(float elapsedTime)
 {
+	////移動処理
+	//float moveSpeed = this->moveSpeed * elapsedTime;
+	//position.x += moveVec.x * moveSpeed;
+	//position.z += moveVec.z * moveSpeed;
+
 	////移動入力処理
 	InputMove(elapsedTime);
 
@@ -99,7 +104,13 @@ void Player::DrawDebugGUI()
 
 void Player::InputMove(float elapsedTime)
 {
-	
+	//進行ベクトル取得
+	DirectX::XMFLOAT3 moveVec = GetMoveVec();
+	//移動処理
+	Move(moveVec.x, moveVec.z, moveSpeed);
+	//旋回処理
+	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
+
 	GamePad& gamePad = Input::Instance().GetGamePad();
 	for (int i = 0; i < 9; i++)
 	{
@@ -161,59 +172,59 @@ void Player::InputMove(float elapsedTime)
 
 }
 
-//DirectX::XMFLOAT3 Player::GetMoveVec()const
-//{
-//	//入力情報を取得
-//	GamePad& gamePad = Input::Instance().GetGamePad();
-//	float ax = gamePad.GetAxisLX();
-//	float ay = gamePad.GetAxisLY();
-//
-//	//カメラ方向とスティックの入力値によって進行方向を計算する
-//	Camera& camera = Camera::instance();
-//	const DirectX::XMFLOAT3& cameraRight = camera.GetRight();
-//	const DirectX::XMFLOAT3& cameraFront = camera.GetFront();
-//
-//	//移動ベクトルはXZ平面に水平なベクトルになるようにする
-//
-//	//カメラ方向ベクトルをXZ単位ベクトルに変換
-//	float cameraRightX = cameraRight.x;
-//	float cameraRightZ = cameraRight.z;
-//	float cameraRightLength = sqrtf(cameraRightX * cameraRightX + cameraRightZ * cameraRightZ);
-//	if (cameraRightLength > 0.0f)
-//	{
-//		//単位ベクトル化 
-//		cameraRightX /= cameraRightLength;
-//		cameraRightZ /= cameraRightLength;
-//		cameraRightLength /= cameraRightLength;
-//	}
-//
-//	float cameraFrontX = cameraFront.x;
-//	float cameraFrontZ = cameraFront.z;
-//	float cameraFrontLength = sqrtf(cameraFrontX * cameraFrontX + cameraFrontZ * cameraFrontZ);
-//	if (cameraFrontLength > 0.0f)
-//	{
-//		//単位ベクトル化
-//		cameraFrontX /= cameraFrontLength;
-//		cameraFrontZ /= cameraFrontLength;
-//		cameraFrontLength /= cameraFrontLength;
-//	}
-//	
-//	//スティックの水平(左右)入力値をカメラ右方向に反映し、
-//	cameraRightX = cameraRightX * ax;
-//	cameraRightZ = cameraRightZ * ax;
-//	//スティックの垂直(上下)入力値にカメラ前方向に反映し、
-//	cameraFrontX = cameraFrontX * ay;
-//	cameraFrontZ = cameraFrontZ * ay;
-//	//進行ベクトルを計算する
-//
-//	DirectX::XMFLOAT3 vec;
-//	vec.x = cameraFrontX + cameraRightX;
-//	vec.z = cameraFrontZ + cameraRightZ;
-//	//Y軸方向には移動しない
-//	vec.y = 0.0f;
-//
-//	return vec;
-//}
+DirectX::XMFLOAT3 Player::GetMoveVec()const
+{
+	//入力情報を取得
+	GamePad& gamePad = Input::Instance().GetGamePad();
+	float ax = gamePad.GetAxisLX();
+	float ay = gamePad.GetAxisLY();
+
+	//カメラ方向とスティックの入力値によって進行方向を計算する
+	Camera& camera = Camera::instance();
+	const DirectX::XMFLOAT3& cameraRight = camera.GetRight();
+	const DirectX::XMFLOAT3& cameraFront = camera.GetFront();
+
+	//移動ベクトルはXZ平面に水平なベクトルになるようにする
+
+	//カメラ方向ベクトルをXZ単位ベクトルに変換
+	float cameraRightX = cameraRight.x;
+	float cameraRightZ = cameraRight.z;
+	float cameraRightLength = sqrtf(cameraRightX * cameraRightX + cameraRightZ * cameraRightZ);
+	if (cameraRightLength > 0.0f)
+	{
+		//単位ベクトル化 
+		cameraRightX /= cameraRightLength;
+		cameraRightZ /= cameraRightLength;
+		cameraRightLength /= cameraRightLength;
+	}
+
+	float cameraFrontX = cameraFront.x;
+	float cameraFrontZ = cameraFront.z;
+	float cameraFrontLength = sqrtf(cameraFrontX * cameraFrontX + cameraFrontZ * cameraFrontZ);
+	if (cameraFrontLength > 0.0f)
+	{
+		//単位ベクトル化
+		cameraFrontX /= cameraFrontLength;
+		cameraFrontZ /= cameraFrontLength;
+		cameraFrontLength /= cameraFrontLength;
+	}
+	
+	//スティックの水平(左右)入力値をカメラ右方向に反映し、
+	cameraRightX = cameraRightX * ax;
+	cameraRightZ = cameraRightZ * ax;
+	//スティックの垂直(上下)入力値にカメラ前方向に反映し、
+	cameraFrontX = cameraFrontX * ay;
+	cameraFrontZ = cameraFrontZ * ay;
+	//進行ベクトルを計算する
+
+	DirectX::XMFLOAT3 vec;
+	vec.x = cameraFrontX + cameraRightX;
+	vec.z = cameraFrontZ + cameraRightZ;
+	//Y軸方向には移動しない
+	vec.y = 0.0f;
+
+	return vec;
+}
 
 //前後判定で使う内積　前後判定 = 内積ではない
 //左右判定で使う外積　左右判定 = 外積ではない

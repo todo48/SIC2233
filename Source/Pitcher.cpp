@@ -5,6 +5,7 @@
 #include"Graphics/Graphics.h"
 #include"Collision.h"
 #include"BaseBall.h"
+#include"player.h"
 
 
 //コンストラクタ
@@ -28,6 +29,9 @@ Pitcher::~Pitcher()
 //更新処理
 void Pitcher::Update(float elapsedTime)
 {
+	//ボール発射処理
+	InputBall();
+
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
 
@@ -40,6 +44,7 @@ void Pitcher::Update(float elapsedTime)
 	//モデル行列更新
 	model->UpdateTransform(transform);
 
+	
 }
 
 void Pitcher::Render(ID3D11DeviceContext* dc, Shader* shader)
@@ -100,12 +105,12 @@ void Pitcher::OnLanding()
 void Pitcher::InputBall()
 {
 	if (LaunchReady == true)
-	{
+	{	
 		//前方向
 		DirectX::XMFLOAT3 dir;
-		dir.x = sinf(angle.y);
+		dir.x = -sinf(angle.y);
 		dir.y = 0.0f;
-		dir.z = cosf(angle.y);
+		dir.z = -cosf(angle.y);
 
 		//発射位置
 		DirectX::XMFLOAT3 pos;
@@ -115,16 +120,22 @@ void Pitcher::InputBall()
 
 		//投げる位置(デフォルトでは　S　の位置)
 		DirectX::XMFLOAT3 target;
-		target = { 0,0,0 };
+		target.x = 0;
+		target.y = 20;
+		target.z = 0;
 
 		//投げる位置を抽選
+
+
 		DirectX::XMVECTOR PitchPos = DirectX::XMLoadFloat3(&position);
-		DirectX::XMVECTOR ZonePos = { 0,0,0 };
+		DirectX::XMVECTOR ZonePos = {0,0,0};
 		DirectX::XMVECTOR V = DirectX::XMVectorSubtract(ZonePos, PitchPos);
 		DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
 
 		//発射
 		BaseBall* ball = new BaseBall(&ballManager);
 		ball->Launch(dir, pos, target);
+
+		LaunchReady = false;
 	}
 }

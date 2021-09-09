@@ -44,7 +44,7 @@ protected:
 
 private:
 	////スティック入力値から移動ベクトルを取得
-	//DirectX::XMFLOAT3 GetMoveVec()const;
+	DirectX::XMFLOAT3 GetMoveVec()const;
 
 	////プレイヤーとエネミーの衝突処理
 	//void CollisionPlayerVsEnemies();
