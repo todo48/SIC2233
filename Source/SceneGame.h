@@ -8,6 +8,8 @@
 #include "CameraController.h"
 #include "Scene.h"
 
+#include "Graphics/Sprite.h"
+
 // ÉQÅ[ÉÄÉVÅ[Éì
 class SceneGame : public Scene
 {
@@ -34,4 +36,6 @@ private:
 	Ball* ball = nullptr;
 	CameraController* cameraController = nullptr;
 	
+
+	Sprite* scenegame_ui = nullptr;
 };

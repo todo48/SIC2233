@@ -5,6 +5,11 @@
 #include"BaseBall.h"
 #include"EffectManager.h"
 
+#include"Input/GamePad.h"
+#include"Input/Input.h"
+#include "SceneResult.h"
+#include "SceneManager.h"
+
 
 // 初期化
 void SceneGame::Initialize()
@@ -31,6 +36,11 @@ void SceneGame::Initialize()
 		0.1f,
 		1000.0f
 	);
+
+	// 2Dスプライト
+
+	scenegame_ui = new Sprite("Data/Sprite/UI_SceneGame_S1.png");
+
 }
 
 // 終了化
@@ -85,6 +95,18 @@ void SceneGame::Update(float elapsedTime)
 
 	//エフェクト更新処理
 	EffectManager::Instance().Update(elapsedTime);
+
+
+	// 
+
+	GamePad& gamePad = Input::Instance().GetGamePad();
+
+	if (gamePad.GetButtonDown() & GamePad::BTN_J)
+	{
+		SceneManager::Instance().ChangeScene(new SceneResult);
+	}
+
+
 }
 
 
@@ -150,7 +172,16 @@ void SceneGame::Render()
 
 	// 2Dスプライト描画
 	{
-
+		float screenWidth = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth = static_cast<float>(scenegame_ui->GetTextureWidth());
+		float textureHeight = static_cast<float>(scenegame_ui->GetTextureHeight());
+		//タイトルスプライト描画
+		scenegame_ui->Render(dc,
+			0, 0, screenWidth, screenHeight,
+			0, 0, textureWidth, textureHeight,
+			0,
+			1, 1, 1, 1);
 	}
 
 	// 2DデバッグGUI描画
