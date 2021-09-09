@@ -2,6 +2,7 @@
 
 #include "Graphics/Sprite.h"
 #include "Scene.h"
+#include"Audio/Audio.h"
 
 //タイトルシーン
 class SceneResult : public Scene
@@ -30,8 +31,8 @@ public:
 
 
 private:
-    //std::unique_ptr<AudioSource> audio_Stage = nullptr;
-    //std::unique_ptr<AudioSource> audio_TimeUp = nullptr;
+    std::unique_ptr<AudioSource> AResult;
+    std::unique_ptr<AudioSource> GameStart;
 private:
     Sprite* Result = nullptr;
 

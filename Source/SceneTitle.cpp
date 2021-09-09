@@ -10,6 +10,11 @@ void SceneTitle::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/Title.png");
+
+
+    Title = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Title.wav", true);
+
+    GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Gamestart.wav", false);
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -17,6 +22,8 @@ void SceneTitle::Initialize()
 //終了化
 void  SceneTitle::Finalize()
 {
+   
+
     DELETE_IF(sprite);
 }
 
@@ -32,9 +39,14 @@ void SceneTitle::Update(float elapsedTime)
         GamePad::BTN_X |
         GamePad::BTN_Y;
 
+    //Title->Play();
+
     if (gamePad.GetButtonDown() & anyButton)
     {
+
+        GameStart->Play();
         SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+
     }
 }
 

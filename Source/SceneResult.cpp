@@ -13,6 +13,10 @@ void SceneResult::Initialize()
     //スプライト初期化
     sprites[0] = std::make_unique<Sprite>("Data/Fonts/font3.png");
     Result = new Sprite("Data/Sprite/Result.png");
+
+    //Audio初期化
+    AResult = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Result.wav", true);
+    GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\GameStart.wav", true);
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -27,6 +31,7 @@ void  SceneResult::Finalize()
 void SceneResult::Update(float elapsedTime)
 {
     GamePad& gamePad = Input::Instance().GetGamePad();
+    AResult->Play();
 
 #if 0
     //なにかボタンを押したら次のシーンへ切り替え
@@ -42,6 +47,7 @@ void SceneResult::Update(float elapsedTime)
     {
         // ロード画面がいるなら " 0 " いらないなら　" 1 "
 #if 1
+        GameStart->Play();
         SceneManager::Instance().ChangeScene(new SceneTitle);
 #else
         SceneManager::Instance().ChangeScene(new SceneLoading(new SceneTitle));

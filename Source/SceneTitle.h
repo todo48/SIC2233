@@ -2,6 +2,8 @@
 
 #include "Graphics/Sprite.h"
 #include "Scene.h"
+#include"Audio/Audio.h"
+
 
 //タイトルシーン
 class SceneTitle : public Scene
@@ -21,6 +23,9 @@ public:
 
     //描画処理
      void Render() override;
+
+     std::unique_ptr<AudioSource> Title;
+     std::unique_ptr<AudioSource> GameStart;
 
 private:
     Sprite* sprite = nullptr;

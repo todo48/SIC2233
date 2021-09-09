@@ -41,6 +41,13 @@ void SceneGame::Initialize()
 
 	scenegame_ui = new Sprite("Data/Sprite/UI_SceneGame_S1.png");
 
+	Game = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Game.wav", true);
+	Hit = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Hit.wav", true);
+	Ballcatch = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Ballcatch.wav", true);
+	Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", true);
+	
+
+
 }
 
 // 終了化
@@ -85,6 +92,8 @@ void SceneGame::Update(float elapsedTime)
 
 	//ピッチャー更新処理
 	pitcher->Update(elapsedTime);
+
+	Game->Play();
 
 	//カメラコントローラー更新処理
 	DirectX::XMFLOAT3 eye = player->GetPosition();

@@ -9,6 +9,8 @@
 #include "Scene.h"
 
 #include "Graphics/Sprite.h"
+#include"Audio/Audio.h"
+
 
 // ƒQ[ƒ€ƒV[ƒ“
 class SceneGame : public Scene
@@ -28,6 +30,12 @@ public:
 
 	// •`‰æˆ—
 	void Render() override;
+
+	std::unique_ptr<AudioSource> Game;
+	std::unique_ptr<AudioSource> Swing;
+	std::unique_ptr<AudioSource> Hit;
+	std::unique_ptr<AudioSource> Ballcatch;
+
 
 private:
 	Stage* stage = nullptr;
