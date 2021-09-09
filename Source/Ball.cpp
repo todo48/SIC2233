@@ -2,6 +2,8 @@
 #include"Graphics/Graphics.h"
 #include"BallManager.h"
 
+// test
+
 //コンストラクタ
 Ball::Ball(BallManager* manager) :manager(manager)
 {
