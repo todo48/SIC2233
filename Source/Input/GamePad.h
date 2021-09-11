@@ -10,7 +10,7 @@ public:
 	static const GamePadButton BTN_RIGHT = (1 << 1);
 	static const GamePadButton BTN_DOWN = (1 << 2);
 	static const GamePadButton BTN_LEFT = (1 << 3);
-	static const GamePadButton BTN_A = (1 << 4);
+	static const GamePadButton BTN_C = (1 << 4);
 	static const GamePadButton BTN_Z = (1 << 5);
 	static const GamePadButton BTN_X = (1 << 6);
 	static const GamePadButton BTN_Q = (1 << 7);
@@ -31,7 +31,7 @@ public:
 	static const GamePadButton BTN_Y = (1 << 18);
 	static const GamePadButton BTN_START = (1 << 19);
 	static const GamePadButton BTN_B = (1 << 20);
-
+	static const GamePadButton BTN_A = (1 << 21);
 public:
 	GamePad() {}
 	~GamePad() {}

@@ -37,13 +37,18 @@ void Player::Update(float elapsedTime)
 
 
 	BaseBall* baseball = new BaseBall(&ballManager);
-	Pitcher pitcher = Pitcher::instance();
-	//if (isSwing == true || baseball->GetPosition().z > 0 || SwingZone == pitcher.PitchZone)
-	//{
-	//	//AddImpulse(impulse);
-	//	baseball->Destroy();
-	//	isSwing = false;
-	//}
+
+
+	//Pitcher pitcher = Pitcher::Instance();
+	
+
+
+	if (isSwing == true && SwingZone == Pitcher::Instance().PitchZone) //&&baseball->GetPosition().z > 0)
+	{
+		//AddImpulse(impulse);
+		baseball->Destroy();
+		isSwing = false;
+	}
 
 	////移動入力処理
 	InputMove(elapsedTime);
@@ -123,74 +128,122 @@ void Player::InputMove(float elapsedTime)
 	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
 
 
-	//{
-	//	BaseBall* baseball = new BaseBall(&ballManager);
-	//	DirectX::XMFLOAT3 impulse;
-	//	const float power = 10.0f;	//ここで固定になっているのは微妙						
-	//	// 吹き飛ばし方向の計算
-	//	const DirectX::XMFLOAT3& e = GetPosition();
-	//	const DirectX::XMFLOAT3& p = baseball->GetPosition();
-	//	float vx = e.x - p.x;
-	//	float vz = e.z - p.z;
-	//	// 単位ベクトル化
-	//	float lengthXZ = sqrtf(vx * vx + vz * vz);
-	//	vx /= lengthXZ;
-	//	vz /= lengthXZ;
-	//	// 力の設定
-	//	impulse.x = vx * power;
-	//	impulse.z = vz * power;
-	//	impulse.y = power * 0.5f;	//上向きの力も追加
-	//}
+	{
+		BaseBall* baseball = new BaseBall(&ballManager);
+		DirectX::XMFLOAT3 impulse;
+		const float power = 10.0f;	//ここで固定になっているのは微妙						
+		// 吹き飛ばし方向の計算
+		const DirectX::XMFLOAT3& e = GetPosition();
+		const DirectX::XMFLOAT3& p = baseball->GetPosition();
+		float vx = e.x - p.x;
+		float vz = e.z - p.z;
+		// 単位ベクトル化
+		float lengthXZ = sqrtf(vx * vx + vz * vz);
+		vx /= lengthXZ;
+		vz /= lengthXZ;
+		// 力の設定
+		impulse.x = vx * power;
+		impulse.z = vz * power;
+		impulse.y = power * 0.5f;	//上向きの力も追加
+	}
 
 
 	GamePad& gamePad = Input::Instance().GetGamePad();
-	for (int i = 0; i < 9; i++)
+	//for (int i = 0; i < 9; i++)
+	//{
+	//	if (gamePad.GetButtonDown() & (1<<i))//gamePad.BTN_Z)
+	//	{
+	//		isSwing = true;
+	//		switch (i)
+	//		{
+	//		//Zキー
+	//		case 0:
+	//			SwingZone = 1;
+	//			break;
+	//		//Xキー
+	//		case 2:
+	//			SwingZone = 2;
+	//			break;
+	//		//Cキー
+	//		case 3:
+	//			SwingZone = 3;
+	//			break;
+	//		//BTN_LEFT(Aキー)
+	//		case 4:
+	//			SwingZone = 4;
+	//			break;
+	//		//BTN_DOWN(Sキー)
+	//		case 5:
+	//			SwingZone = 5;
+	//			break;
+	//		//BTN_RIGHT(Dキー)
+	//		case 6:
+	//			SwingZone = 6;
+	//			break;
+	//		//Qキー
+	//		case 7:
+	//			SwingZone = 7;
+	//			break;
+	//		//BTN_UP(Wキー)
+	//		case 8:
+	//			SwingZone = 8;
+	//			break;
+	//		//Eキー
+	//		case 9:
+	//			SwingZone = 9;
+	//			break;
+	//		}
+	//	}
+	//}
+
+
 	{
-		if (gamePad.GetButtonDown() & (1 << i))
+		if (gamePad.GetButtonDown() & GamePad::BTN_Z)
 		{
 			isSwing = true;
-			switch (i)
-			{
-			//Zキー
-			case 1:
-				SwingZone = 1;
-				break;
-			//Xキー
-			case 2:
-				break;
-				SwingZone = 2;
-			//Cキー
-			case 3:
-				SwingZone = 3;
-				break;
-			//BTN_LEFT(Aキー)
-			case 4:
-				SwingZone = 4;
-				break;
-			//BTN_DOWN(Sキー)
-			case 5:
-				SwingZone = 5;
-				break;
-			//BTN_RIGHT(Dキー)
-			case 6:
-				SwingZone = 6;
-				break;
-			//Qキー
-			case 7:
-				SwingZone = 7;
-				break;
-			//BTN_UP(Wキー)
-			case 8:
-				SwingZone = 8;
-				break;
-			//Eキー
-			case 9:
-				SwingZone = 9;
-				break;
-			}
+			SwingZone = 1;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
+		{
+			isSwing = true;
+			SwingZone = 2;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_C)
+		{
+			isSwing = true;
+			SwingZone = 3;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_LEFT)
+		{
+			isSwing = true;
+			SwingZone = 4;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
+		{
+			isSwing = true;
+			SwingZone = 5;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
+		{
+			isSwing = true;
+			SwingZone = 6;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_Q)
+		{
+			isSwing = true;
+			SwingZone = 7;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_UP)
+		{
+			isSwing = true;
+			SwingZone = 8;
+		}
+		else if (gamePad.GetButtonDown() & GamePad::BTN_E)
+		{
+			isSwing = true;
+			SwingZone = 9;
 		}
 	}
-	
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const

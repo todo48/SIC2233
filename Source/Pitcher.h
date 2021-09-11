@@ -13,11 +13,14 @@ public:
 	Pitcher();
 	~Pitcher() override;
 
-	static Pitcher& instance()
+	static Pitcher& Instance()
 	{
-		static Pitcher pitcher;
-		return pitcher;
+		static Pitcher instance;
+		return instance;
 	}
+
+	
+
 	int PitchZone = 0;
 
 	//XVˆ—

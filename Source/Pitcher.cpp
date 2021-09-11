@@ -142,7 +142,8 @@ void Pitcher::InputBall()
 
 		//投げる位置を抽選
 		//ストライク
-		int a = 20;
+		//int a = rand() % 10;
+		int a = 1;
 		//ボール球
 		int b = 18;
 		switch (a)
