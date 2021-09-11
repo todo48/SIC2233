@@ -17,7 +17,8 @@ void SceneTitle::Initialize()
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Gamestart.wav", false);
  //   GameStart = Audio::Instance().LoadAudioSource("Data/Audio/Gamestart.wav", false);
 
-    title_timer = 30;
+    title_timer = 26;
+    state = 0;
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}

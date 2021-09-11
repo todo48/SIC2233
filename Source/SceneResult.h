@@ -33,6 +33,10 @@ public:
 private:
     std::unique_ptr<AudioSource> AResult;
     std::unique_ptr<AudioSource> GameStart;
+public:
+    int state = 0;
+    int title_timer = 0;
+
 private:
     Sprite* Result = nullptr;
 

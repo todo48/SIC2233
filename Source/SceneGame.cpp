@@ -94,7 +94,7 @@ void SceneGame::Update(float elapsedTime)
 	//ピッチャー更新処理
 	pitcher->Update(elapsedTime);
 
-	Game->Play();
+	//Game->Play();
 
 	//カメラコントローラー更新処理
 	DirectX::XMFLOAT3 eye = player->GetPosition();

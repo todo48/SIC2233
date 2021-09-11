@@ -17,6 +17,9 @@ void SceneResult::Initialize()
     //Audio初期化
     AResult = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Result.wav", true);
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\GameStart.wav", true);
+
+    title_timer = 26;
+    state = 0;
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -41,32 +44,52 @@ void SceneResult::Update(float elapsedTime)
         GamePad::BTN_X |
         GamePad::BTN_Y;
 #endif
-
-    // タイトルに戻る
-    if (gamePad.GetButtonDown() & GamePad::BTN_START)
+    switch (state)
     {
-        // ロード画面がいるなら " 0 " いらないなら　" 1 "
+    case 0:
+        // タイトルに戻る
+        if (gamePad.GetButtonDown() & GamePad::BTN_START)
+        {
+            GameStart->Play();
+            state += 1;
+        }
+
+
+        // ゲームに戻る
+        if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
+        {
+            GameStart->Play();
+            state += 2;
+        }
+
+
+        break;
+
+    case 1:
+        title_timer--;
+        if (title_timer < 0)
+        {
+            // ロード画面がいるなら " 0 " いらないなら　" 1 "
 #if 1
-        GameStart->Play();
-        SceneManager::Instance().ChangeScene(new SceneTitle);
+            SceneManager::Instance().ChangeScene(new SceneTitle);
 #else
-        SceneManager::Instance().ChangeScene(new SceneLoading(new SceneTitle));
+            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneTitle));
 #endif
-    
-    }
+        }
+        break;
 
-    // ゲームに戻る
-    if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
-    {
-        // ロード画面がいるなら " 0 " いらないなら　" 1 "
+    case 2:
+        title_timer--;
+        if (title_timer < 0)
+        {
+            // ロード画面がいるなら " 0 " いらないなら　" 1 "
 #if 1   
-        SceneManager::Instance().ChangeScene(new SceneGame);
+            SceneManager::Instance().ChangeScene(new SceneGame);
 #else 
 
-        SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
 #endif
-
-
+        }
     }
 }
 
