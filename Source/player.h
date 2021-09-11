@@ -5,6 +5,7 @@
 #include"Character.h"
 #include"ProjectileManager.h"
 #include "Effect.h"
+#include"BallManager.h"
 
 //ÉvÉåÉCÉÑÅ[
 class Player : public Character
@@ -36,7 +37,9 @@ public:
 
 	//void CollisionProjectilesVsEnemies();
 
-	void HitBack(const DirectX::XMFLOAT3& impulse);
+	//void HitBack(const DirectX::XMFLOAT3& impulse);
+
+	BallManager ballManager;
 
 protected:
 	void OnLanding() override;

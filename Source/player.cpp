@@ -7,7 +7,8 @@
 #include"Collision.h"
 #include"ProjectileStraite.h"
 #include"ProjectileHoming.h"
-
+#include"Pitcher.h"
+#include"BaseBall.h"
 
 //コンストラクタ
 Player::Player()
@@ -33,6 +34,16 @@ void Player::Update(float elapsedTime)
 	//float moveSpeed = this->moveSpeed * elapsedTime;
 	//position.x += moveVec.x * moveSpeed;
 	//position.z += moveVec.z * moveSpeed;
+
+
+	BaseBall* baseball = new BaseBall(&ballManager);
+	Pitcher pitcher = Pitcher::instance();
+	//if (isSwing == true || baseball->GetPosition().z > 0 || SwingZone == pitcher.PitchZone)
+	//{
+	//	//AddImpulse(impulse);
+	//	baseball->Destroy();
+	//	isSwing = false;
+	//}
 
 	////移動入力処理
 	InputMove(elapsedTime);
@@ -111,62 +122,75 @@ void Player::InputMove(float elapsedTime)
 	//旋回処理
 	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
 
+
+	//{
+	//	BaseBall* baseball = new BaseBall(&ballManager);
+	//	DirectX::XMFLOAT3 impulse;
+	//	const float power = 10.0f;	//ここで固定になっているのは微妙						
+	//	// 吹き飛ばし方向の計算
+	//	const DirectX::XMFLOAT3& e = GetPosition();
+	//	const DirectX::XMFLOAT3& p = baseball->GetPosition();
+	//	float vx = e.x - p.x;
+	//	float vz = e.z - p.z;
+	//	// 単位ベクトル化
+	//	float lengthXZ = sqrtf(vx * vx + vz * vz);
+	//	vx /= lengthXZ;
+	//	vz /= lengthXZ;
+	//	// 力の設定
+	//	impulse.x = vx * power;
+	//	impulse.z = vz * power;
+	//	impulse.y = power * 0.5f;	//上向きの力も追加
+	//}
+
+
 	GamePad& gamePad = Input::Instance().GetGamePad();
 	for (int i = 0; i < 9; i++)
 	{
-		if (gamePad.GetButtonDown() & (0 << i))
+		if (gamePad.GetButtonDown() & (1 << i))
 		{
 			isSwing = true;
 			switch (i)
 			{
-				//BTN_UP(Wキー)
-			case 0:
-				isSwing = false;
-				SwingZone = 8;
-				break;
-				//BTN_RIGHT(Dキー)
+			//Zキー
 			case 1:
-				isSwing = false;
-				SwingZone = 6;
-				break;
-				//BTN_DOWN(Sキー)
-			case 2:
-				isSwing = false;
-				SwingZone = 5;
-				break;
-				//BTN_LEFT(Aキー)
-			case 3:
-				isSwing = false;
-				SwingZone = 4;
-				break;
-				//Zキー
-			case 4:
-				isSwing = false;
 				SwingZone = 1;
 				break;
-				//Xキー
-			case 5:
-				isSwing = false;
+			//Xキー
+			case 2:
 				break;
 				SwingZone = 2;
-				//Cキー
-			case 6:
-				isSwing = false;
+			//Cキー
+			case 3:
 				SwingZone = 3;
 				break;
-				//Qキー
+			//BTN_LEFT(Aキー)
+			case 4:
+				SwingZone = 4;
+				break;
+			//BTN_DOWN(Sキー)
+			case 5:
+				SwingZone = 5;
+				break;
+			//BTN_RIGHT(Dキー)
+			case 6:
+				SwingZone = 6;
+				break;
+			//Qキー
 			case 7:
-				isSwing = false;
 				SwingZone = 7;
 				break;
-				//Eキー
+			//BTN_UP(Wキー)
 			case 8:
-				isSwing = false;
+				SwingZone = 8;
+				break;
+			//Eキー
+			case 9:
 				SwingZone = 9;
 				break;
 			}
 		}
 	}
+	
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const

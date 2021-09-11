@@ -30,7 +30,7 @@ public:
 
 	static const GamePadButton BTN_Y = (1 << 18);
 	static const GamePadButton BTN_START = (1 << 19);
-
+	static const GamePadButton BTN_B = (1 << 20);
 
 public:
 	GamePad() {}

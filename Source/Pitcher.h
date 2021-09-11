@@ -13,6 +13,13 @@ public:
 	Pitcher();
 	~Pitcher() override;
 
+	static Pitcher& instance()
+	{
+		static Pitcher pitcher;
+		return pitcher;
+	}
+	int PitchZone = 0;
+
 	//更新処理
 	void Update(float elapsedTime);
 
@@ -28,13 +35,14 @@ public:
 	//ボール発射処理
 	void InputBall();
 
+	
 protected:
 	void OnLanding() override;
-
+	
 private:
 	Model* model = nullptr;
 	Effect* hiteffect = nullptr;
 	BallManager ballManager;
 	float Launch_Timer = 300;
-	int PitchZone = 0;
+
 }; 
