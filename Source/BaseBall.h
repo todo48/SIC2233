@@ -24,6 +24,9 @@ public:
 		const DirectX::XMFLOAT3& target
 	);
 
+	//”­ŽË‰Â”Û
+	bool LaunchReady = false;
+
 private:
 	Model* model = nullptr;
 	DirectX::XMFLOAT3 target = { 0,0,0 };

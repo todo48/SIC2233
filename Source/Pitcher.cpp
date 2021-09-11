@@ -104,7 +104,8 @@ void Pitcher::OnLanding()
 
 void Pitcher::InputBall()
 {
-	if (LaunchReady == true)
+	BaseBall* baseball = new BaseBall(&ballManager);
+	if (baseball->LaunchReady == true)
 	{	
 		//‘O•ûŒü
 		DirectX::XMFLOAT3 dir;
@@ -133,9 +134,7 @@ void Pitcher::InputBall()
 		DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
 
 		//”­ŽË
-		BaseBall* ball = new BaseBall(&ballManager);
-		ball->Launch(dir, pos, target);
-
-		LaunchReady = false;
+		baseball->Launch(dir, pos, target);
+		baseball->LaunchReady = false;
 	}
 }
