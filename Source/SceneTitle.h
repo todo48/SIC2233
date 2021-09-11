@@ -29,7 +29,7 @@ public:
 
 public:
     int state = 0;
-    int titlet_imer = 0;
+    int title_timer = 0;
 private:
     Sprite* sprite = nullptr;
 };

@@ -35,4 +35,5 @@ private:
 	Model* model = nullptr;
 	Effect* hiteffect = nullptr;
 	BallManager ballManager;
+	float Launch_Timer = 300;
 }; 

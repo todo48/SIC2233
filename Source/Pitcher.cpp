@@ -34,10 +34,20 @@ void Pitcher::Update(float elapsedTime)
 	InputBall();
 
 	//ボールの位置が既定位置に達した時
-	BaseBall* baseball = new BaseBall(&ballManager);
-	if (baseball->GetPosition().z < -10)
-	//発射準備をtrue
-	LaunchReady = true;
+	//BaseBall* baseball = new BaseBall(&ballManager);
+	//if (baseball->GetPosition().z < -10 && baseball->GetPosition().z > 50)
+	////発射準備をtrue
+	//LaunchReady = true;
+
+	if (LaunchReady == false)
+	{
+		Launch_Timer--;
+		if (Launch_Timer < 0)
+		{
+			Launch_Timer = 600;
+			LaunchReady = true;
+		}
+	}
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
@@ -137,6 +147,8 @@ void Pitcher::InputBall()
 		DirectX::XMVECTOR ZonePos = {0,0,0};
 		DirectX::XMVECTOR V = DirectX::XMVectorSubtract(ZonePos, PitchPos);
 		DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
+
+		baseball->GetPosition();
 
 		//発射
 		baseball->Launch(dir, pos, target);

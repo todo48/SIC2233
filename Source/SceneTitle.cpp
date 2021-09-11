@@ -17,7 +17,7 @@ void SceneTitle::Initialize()
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Gamestart.wav", false);
  //   GameStart = Audio::Instance().LoadAudioSource("Data/Audio/Gamestart.wav", false);
 
-    titlet_imer = 30;
+    title_timer = 30;
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -56,8 +56,8 @@ void SceneTitle::Update(float elapsedTime)
 
         break;
     case 1:
-            titlet_imer--;
-        if (titlet_imer < 0)
+            title_timer--;
+        if (title_timer < 0)
         {
             SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
             break;

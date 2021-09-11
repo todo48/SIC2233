@@ -31,6 +31,5 @@ private:
 	float moveSpeed = 10.0f;
 	float turnSpeed = DirectX::XMConvertToRadians(180);
 	float lifeTimer = 3.0f;
-
 };
 
