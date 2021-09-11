@@ -137,11 +137,180 @@ void Pitcher::InputBall()
 		//投げる位置(デフォルトでは　S　の位置)
 		DirectX::XMFLOAT3 target;
 		target.x = 0;
-		target.y = 1.75;
+		target.y = 1.30;
 		target.z = 0;
 
 		//投げる位置を抽選
+		//ストライク
+		int a = 20;
+		//ボール球
+		int b = 18;
+		switch (a)
+		{
+		case 0:
+			b = rand() % 17;
+			break;
+		case 1:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 2:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 3:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 4:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 5:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 6:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 7:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 8:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		case 9:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 1;
+			break;
+		}
 
+		switch (b)
+		{
+		case 0:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 1:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 2:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 3:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 4:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 5:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 6:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 7:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 8:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 9:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 10:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 11:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 12:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 13:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 14:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 15:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		case 16:
+			target.x = 0;
+			target.y = 1.75;
+			target.z = 0;
+			PitchZone = 0;
+			break;
+		}
 
 		DirectX::XMVECTOR PitchPos = DirectX::XMLoadFloat3(&position);
 		DirectX::XMVECTOR ZonePos = {0,0,0};
