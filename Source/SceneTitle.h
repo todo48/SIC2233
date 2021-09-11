@@ -27,6 +27,9 @@ public:
      std::unique_ptr<AudioSource> Title;
      std::unique_ptr<AudioSource> GameStart;
 
+public:
+    int state = 0;
+    int titlet_imer = 0;
 private:
     Sprite* sprite = nullptr;
 };

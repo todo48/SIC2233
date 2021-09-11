@@ -25,7 +25,7 @@ public:
 	);
 
 	//”­ŽË‰Â”Û
-	bool LaunchReady = false;
+	bool LaunchReady = true;
 
 private:
 	Model* model = nullptr;

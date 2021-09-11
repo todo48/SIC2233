@@ -15,6 +15,9 @@ void SceneTitle::Initialize()
     Title = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Title.wav", true);
 
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Gamestart.wav", false);
+ //   GameStart = Audio::Instance().LoadAudioSource("Data/Audio/Gamestart.wav", false);
+
+    titlet_imer = 30;
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -40,12 +43,25 @@ void SceneTitle::Update(float elapsedTime)
         GamePad::BTN_Y;
 
     //Title->Play();
-
-    if (gamePad.GetButtonDown() & anyButton)
+    switch (state)
     {
+    case 0:
+        if (gamePad.GetButtonDown() & anyButton)
+        {
 
-        GameStart->Play();
-        SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+            GameStart->Play();
+        
+            state++;
+        }
+
+        break;
+    case 1:
+            titlet_imer--;
+        if (titlet_imer < 0)
+        {
+            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+            break;
+        }
 
     }
 }
