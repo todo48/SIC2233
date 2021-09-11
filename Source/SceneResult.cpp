@@ -50,7 +50,9 @@ void SceneResult::Update(float elapsedTime)
         // タイトルに戻る
         if (gamePad.GetButtonDown() & GamePad::BTN_START)
         {
+            // SE
             GameStart->Play();
+
             state += 1;
         }
 
@@ -58,7 +60,9 @@ void SceneResult::Update(float elapsedTime)
         // ゲームに戻る
         if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
         {
+            // SE
             GameStart->Play();
+
             state += 2;
         }
 

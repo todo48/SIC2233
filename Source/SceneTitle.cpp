@@ -11,11 +11,10 @@ void SceneTitle::Initialize()
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/Title.png");
 
-
+    // Audio初期化
     Title = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Title.wav", true);
-
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Gamestart.wav", false);
- //   GameStart = Audio::Instance().LoadAudioSource("Data/Audio/Gamestart.wav", false);
+
 
     title_timer = 26;
     state = 0;
@@ -43,13 +42,16 @@ void SceneTitle::Update(float elapsedTime)
         GamePad::BTN_X |
         GamePad::BTN_Y;
 
-    //Title->Play();
+
+    // BGM
+    Title->Play();
+    
     switch (state)
     {
     case 0:
         if (gamePad.GetButtonDown() & anyButton)
         {
-
+            // SE
             GameStart->Play();
         
             state++;
