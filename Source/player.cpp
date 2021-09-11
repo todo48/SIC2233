@@ -122,37 +122,37 @@ void Player::InputMove(float elapsedTime)
 				//BTN_UP(Wキー)
 			case 0:
 				isSwing = false;
-				SwingZone = 0;
+				SwingZone = 8;
 				break;
 				//BTN_RIGHT(Dキー)
 			case 1:
 				isSwing = false;
-				SwingZone = 1;
+				SwingZone = 6;
 				break;
 				//BTN_DOWN(Sキー)
 			case 2:
 				isSwing = false;
-				SwingZone = 2;
+				SwingZone = 5;
 				break;
 				//BTN_LEFT(Aキー)
 			case 3:
 				isSwing = false;
-				SwingZone = 3;
+				SwingZone = 4;
 				break;
 				//Zキー
 			case 4:
 				isSwing = false;
-				SwingZone = 4;
+				SwingZone = 1;
 				break;
 				//Xキー
 			case 5:
 				isSwing = false;
 				break;
-				SwingZone = 5;
+				SwingZone = 2;
 				//Cキー
 			case 6:
 				isSwing = false;
-				SwingZone = 6;
+				SwingZone = 3;
 				break;
 				//Qキー
 			case 7:
@@ -162,14 +162,11 @@ void Player::InputMove(float elapsedTime)
 				//Eキー
 			case 8:
 				isSwing = false;
-				SwingZone = 8;
+				SwingZone = 9;
 				break;
 			}
 		}
 	}
-
-
-
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const
@@ -399,7 +396,6 @@ void Player::OnLanding()
 //		projectile->Launch(dir, pos, target);
 //	}
 //}
-
 //void Player::CollisionProjectilesVsEnemies()
 //{
 //	BallManager& ballManager = BallManager::Instance();
