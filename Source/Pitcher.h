@@ -36,4 +36,5 @@ private:
 	Effect* hiteffect = nullptr;
 	BallManager ballManager;
 	float Launch_Timer = 300;
+	int PitchZone = 0;
 }; 
