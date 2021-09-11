@@ -22,10 +22,8 @@ void BaseBall::Update(float elapsedTime)
 	//lifeTimer -= elapsedTime;
 	if (position.z < -10)
 	{
-		LaunchReady = true;
 		//Ž©•ª‚ðíœ
-		Destroy();
-		
+		Destroy();	
 	}
 
 	//ˆÚ“®
@@ -33,7 +31,7 @@ void BaseBall::Update(float elapsedTime)
 		float moveSpeed = this->moveSpeed * elapsedTime;
 
 		position.x += direction.x * moveSpeed;
-		//position.y += direction.y * moveSpeed;
+		position.y += direction.y * moveSpeed;
 		position.z += direction.z * moveSpeed;
 	}
 	//ù‰ñ
@@ -115,4 +113,5 @@ void BaseBall::Launch(
 	this->target = target;
 
 	UpdateTransform();
+	moveSpeed += 1.0f;
 }

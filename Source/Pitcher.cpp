@@ -30,7 +30,14 @@ Pitcher::~Pitcher()
 void Pitcher::Update(float elapsedTime)
 {
 	//ボール発射処理
+	if(LaunchReady == true)
 	InputBall();
+
+	//ボールの位置が既定位置に達した時
+	BaseBall* baseball = new BaseBall(&ballManager);
+	if (baseball->GetPosition().z < -10)
+	//発射準備をtrue
+	LaunchReady = true;
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
@@ -105,8 +112,6 @@ void Pitcher::OnLanding()
 void Pitcher::InputBall()
 {
 	BaseBall* baseball = new BaseBall(&ballManager);
-	if (baseball->LaunchReady == true)
-	{	
 		//前方向
 		DirectX::XMFLOAT3 dir;
 		dir.x = -sinf(angle.y);
@@ -122,7 +127,7 @@ void Pitcher::InputBall()
 		//投げる位置(デフォルトでは　S　の位置)
 		DirectX::XMFLOAT3 target;
 		target.x = 0;
-		target.y = 20;
+		target.y = 1.75;
 		target.z = 0;
 
 		//投げる位置を抽選
@@ -135,6 +140,5 @@ void Pitcher::InputBall()
 
 		//発射
 		baseball->Launch(dir, pos, target);
-		baseball->LaunchReady = false;
-	}
+		LaunchReady = false;
 }
