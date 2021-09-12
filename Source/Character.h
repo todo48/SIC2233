@@ -1,6 +1,7 @@
 #pragma once
 
 #include<DirectXMath.h>
+#include"BallManager.h"
 
 //キャラクター
 
@@ -89,6 +90,9 @@ protected:
 
 	//死亡した時に呼ばれる
 	virtual void OnDead(){}
+
+	BallManager ballManager;
+
 protected:
 	DirectX::XMFLOAT3   position = { 0,0,0 };
 	DirectX::XMFLOAT3   angle    = { 0,0,0 };
