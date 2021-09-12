@@ -50,9 +50,6 @@ public:
 	//ÕŒ‚‚ğ—^‚¦‚é
 	void AddImpulse(const DirectX::XMFLOAT3& impulse);
 
-	//”­Ë‰Â”Û
-	bool LaunchReady = true;
-
 private:
 	//‚’¼‘¬—ÍXVˆ—
 	void UpdateVerticalVelocity(float elapsedFrame);

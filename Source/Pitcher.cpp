@@ -7,9 +7,6 @@
 #include"BaseBall.h"
 #include"player.h"
 
-
-int Pitcher::PitchZone = 0;
-
 //コンストラクタ
 Pitcher::Pitcher()
 {
@@ -31,47 +28,20 @@ Pitcher::~Pitcher()
 //更新処理
 void Pitcher::Update(float elapsedTime)
 {
-	//ボール発射処理
-	if(LaunchReady == true)
-	InputBall();
-
-	//ボールの位置が既定位置に達した時
-	//BaseBall* baseball = new BaseBall(&ballManager);
-	//if (baseball->GetPosition().z < -10 && baseball->GetPosition().z > 50)
-	////発射準備をtrue
-	//LaunchReady = true;
-
-	if (LaunchReady == false)
-	{
-		Launch_Timer--;
-		if (Launch_Timer < 0)
-		{
-			Launch_Timer = 600;
-			LaunchReady = true;
-		}
-	}
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
-
-	//ボール更新処理
-	ballManager.Update(elapsedTime);
 	
 	//オブジェクト行列を更新
 	UpdateTransform();
 
 	//モデル行列更新
 	model->UpdateTransform(transform);
-
-	
 }
 
 void Pitcher::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
 	shader->Draw(dc, model);
-
-	//ボール描画処理
-	ballManager.Render(dc, shader);
 }
 
 void Pitcher::DrawDebugGUI()
@@ -112,217 +82,214 @@ void Pitcher::DrawDebugPrimitive()
 
 	//衝突判定用のデバッグ円柱を描画
 	debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
-
-	//ボールデバッグプリミティブ
-	ballManager.DrawDebugPrimitive();
 }
 
 void Pitcher::OnLanding()
 {
 }
 
-void Pitcher::InputBall()
-{
-	BaseBall* baseball = new BaseBall(&ballManager);
-		//前方向
-		DirectX::XMFLOAT3 dir;
-		dir.x = -sinf(angle.y);
-		dir.y = 0.0f;
-		dir.z = -cosf(angle.y);
-
-		//発射位置
-		DirectX::XMFLOAT3 pos;
-		pos.x = position.x;
-		pos.y = position.y + height * 0.5f;
-		pos.z = position.z;
-
-		//投げる位置(デフォルトでは　S　の位置)
-		DirectX::XMFLOAT3 target;
-		target.x = 0;
-		target.y = 1.30;
-		target.z = 0;
-
-		//投げる位置を抽選
-		//ストライク
-		//int a = rand() % 10;
-		int a = 1;
-		//ボール球
-		int b = 18;
-		switch (a)
-		{
-		case 0:
-			b = rand() % 17;
-			break;
-		case 1:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 2:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 3:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 4:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 5:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 6:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 7:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 8:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		case 9:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 1;
-			break;
-		}
-
-		switch (b)
-		{
-		case 0:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 1:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 2:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 3:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 4:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 5:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 6:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 7:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 8:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 9:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 10:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 11:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 12:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 13:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 14:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 15:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		case 16:
-			target.x = 0;
-			target.y = 1.75;
-			target.z = 0;
-			PitchZone = 0;
-			break;
-		}
-
-		DirectX::XMVECTOR PitchPos = DirectX::XMLoadFloat3(&position);
-		DirectX::XMVECTOR ZonePos = {0,0,0};
-		DirectX::XMVECTOR V = DirectX::XMVectorSubtract(ZonePos, PitchPos);
-		DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
-
-		baseball->GetPosition();
-
-		//発射
-		baseball->Launch(dir, pos, target);
-		LaunchReady = false;
-}
+//void Player::InputBall()
+//{
+//	BaseBall* baseball = new BaseBall(&ballManager);
+//		//前方向
+//		DirectX::XMFLOAT3 dir;
+//		dir.x = -sinf(angle.y);
+//		dir.y = 0.0f;
+//		dir.z = -cosf(angle.y);
+//
+//		//発射位置
+//		DirectX::XMFLOAT3 pos;
+//		pos.x = position.x;
+//		pos.y = position.y + height * 0.5f;
+//		pos.z = position.z;
+//
+//		//投げる位置(デフォルトでは　S　の位置)
+//		DirectX::XMFLOAT3 target;
+//		target.x = 0;
+//		target.y = 1.30;
+//		target.z = 0;
+//
+//		//投げる位置を抽選
+//		//ストライク
+//		//int a = rand() % 10;
+//		int a = 1;
+//		//ボール球
+//		int b = 18;
+//		switch (a)
+//		{
+//		case 0:
+//			b = rand() % 17;
+//			break;
+//		case 1:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 2:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 3:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 4:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 5:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 6:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 7:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 8:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		case 9:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 1;
+//			break;
+//		}
+//
+//		switch (b)
+//		{
+//		case 0:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 1:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 2:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 3:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 4:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 5:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 6:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 7:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 8:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 9:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 10:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 11:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 12:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 13:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 14:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 15:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		case 16:
+//			target.x = 0;
+//			target.y = 1.75;
+//			target.z = 0;
+//			PitchZone = 0;
+//			break;
+//		}
+//
+//		DirectX::XMVECTOR PitchPos = DirectX::XMLoadFloat3(&position);
+//		DirectX::XMVECTOR ZonePos = {0,0,0};
+//		DirectX::XMVECTOR V = DirectX::XMVectorSubtract(ZonePos, PitchPos);
+//		DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
+//
+//		baseball->GetPosition();
+//
+//		//発射
+//		baseball->Launch(dir, pos, target);
+//		LaunchReady = false;
+//}

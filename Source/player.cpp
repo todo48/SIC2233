@@ -34,42 +34,42 @@ void Player::Update(float elapsedTime)
 	//float moveSpeed = this->moveSpeed * elapsedTime;
 	//position.x += moveVec.x * moveSpeed;
 	//position.z += moveVec.z * moveSpeed;
-
-
-	BaseBall* baseball = new BaseBall(&ballManager);
-
-
-	//Pitcher pitcher = Pitcher::Instance();
-	
-	
-
-	if (isSwing == true && SwingZone == Pitcher::Instance().PitchZone )//&& baseball->GetPosition().z < 0);
-	{
-		//AddImpulse(impulse);
-		baseball->Destroy();
-		isSwing = false;
-	}
+	////ジャンプ入力処理
+	//InputJump();
+	////弾丸入力処理
+	//InputProjectile();
+	////弾丸更新処理
+	//projectileManager.Update(elapsedTime);
+	////プレイヤーと敵の衝突処理
+	//CollisionPlayerVsEnemies();
+	////弾丸と球の衝突処理
+	//CollisionProjectilesVsEnemies();
 
 	////移動入力処理
 	InputMove(elapsedTime);
 
-	////ジャンプ入力処理
-	//InputJump();
+	//ボール発射処理
+	if(LaunchReady == true)
+	InputBall();
 
-	////弾丸入力処理
-	//InputProjectile();
+	//発射準備
+	if (LaunchReady == false)
+	{
+		Launch_Timer--;
+		if (Launch_Timer < 0)
+		{
+			Launch_Timer = 300;
+			LaunchReady = true;
+		}
+	}
+
+	//ボール更新処理
+	ballManager.Update(elapsedTime);
+
+
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
-
-	////弾丸更新処理
-	//projectileManager.Update(elapsedTime);
-
-	////プレイヤーと敵の衝突処理
-	//CollisionPlayerVsEnemies();
-
-	////弾丸と球の衝突処理
-	//CollisionProjectilesVsEnemies();
 
 	//オブジェクト行列を更新
 	UpdateTransform();
@@ -82,6 +82,9 @@ void Player::Update(float elapsedTime)
 void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
 	shader->Draw(dc, model);
+
+	//ボール描画処理
+	ballManager.Render(dc, shader);
 
 	////弾丸描画処理
 	//projectileManager.Render(dc, shader);
@@ -127,76 +130,7 @@ void Player::InputMove(float elapsedTime)
 	//旋回処理
 	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
 
-
-	{
-		BaseBall* baseball = new BaseBall(&ballManager);
-		DirectX::XMFLOAT3 impulse;
-		const float power = 10.0f;	//ここで固定になっているのは微妙						
-		// 吹き飛ばし方向の計算
-		const DirectX::XMFLOAT3& e = GetPosition();
-		const DirectX::XMFLOAT3& p = baseball->GetPosition();
-		float vx = e.x - p.x;
-		float vz = e.z - p.z;
-		// 単位ベクトル化
-		float lengthXZ = sqrtf(vx * vx + vz * vz);
-		vx /= lengthXZ;
-		vz /= lengthXZ;
-		// 力の設定
-		impulse.x = vx * power;
-		impulse.z = vz * power;
-		impulse.y = power * 0.5f;	//上向きの力も追加
-	}
-
-
 	GamePad& gamePad = Input::Instance().GetGamePad();
-	//for (int i = 0; i < 9; i++)
-	//{
-	//	if (gamePad.GetButtonDown() & (1<<i))//gamePad.BTN_Z)
-	//	{
-	//		isSwing = true;
-	//		switch (i)
-	//		{
-	//		//Zキー
-	//		case 0:
-	//			SwingZone = 1;
-	//			break;
-	//		//Xキー
-	//		case 2:
-	//			SwingZone = 2;
-	//			break;
-	//		//Cキー
-	//		case 3:
-	//			SwingZone = 3;
-	//			break;
-	//		//BTN_LEFT(Aキー)
-	//		case 4:
-	//			SwingZone = 4;
-	//			break;
-	//		//BTN_DOWN(Sキー)
-	//		case 5:
-	//			SwingZone = 5;
-	//			break;
-	//		//BTN_RIGHT(Dキー)
-	//		case 6:
-	//			SwingZone = 6;
-	//			break;
-	//		//Qキー
-	//		case 7:
-	//			SwingZone = 7;
-	//			break;
-	//		//BTN_UP(Wキー)
-	//		case 8:
-	//			SwingZone = 8;
-	//			break;
-	//		//Eキー
-	//		case 9:
-	//			SwingZone = 9;
-	//			break;
-	//		}
-	//	}
-	//}
-
-
 	{
 		if (gamePad.GetButtonDown() & GamePad::BTN_Z)
 		{
@@ -244,6 +178,210 @@ void Player::InputMove(float elapsedTime)
 			SwingZone = 9;
 		}
 	}
+}
+
+void Player::InputBall()
+{
+	BaseBall* baseball = new BaseBall(&ballManager);
+	//前方向
+	DirectX::XMFLOAT3 dir;
+	dir.x = -sinf(angle.y);
+	dir.y = 0.0f;
+	dir.z = -cosf(angle.y);
+
+	//発射位置
+	DirectX::XMFLOAT3 pos;
+	pos.x = 0;
+	pos.y = 1.5;
+	pos.z = 50;
+
+	//投げる位置(デフォルトでは　S　の位置)
+	DirectX::XMFLOAT3 target;
+	target.x = 0;
+	target.y = 1.30;
+	target.z = 0;
+
+	//投げる位置を抽選
+	//ストライク
+	//int a = rand() % 10;
+	int a = 1;
+	//ボール球
+	int b = 18;
+	switch (a)
+	{
+	case 0:
+		b = rand() % 17;
+		break;
+	case 1:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 2:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 3:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 4:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 5:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 6:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 7:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 8:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	case 9:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 1;
+		break;
+	}
+
+	switch (b)
+	{
+	case 0:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 1:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 2:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 3:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 4:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 5:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 6:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 7:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 8:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 9:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 10:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 11:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 12:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 13:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 14:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 15:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	case 16:
+		target.x = 0;
+		target.y = 1.75;
+		target.z = 0;
+		PitchZone = 0;
+		break;
+	}
+
+	DirectX::XMVECTOR PitchPos = { 0,1.5,50 };
+	DirectX::XMVECTOR ZonePos = { 0,0,0 };
+	DirectX::XMVECTOR V = DirectX::XMVectorSubtract(ZonePos, PitchPos);
+	DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
+
+	//発射
+	baseball->Launch(dir, pos, target);
+	LaunchReady = false;
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const
@@ -314,8 +452,8 @@ void Player::DrawDebugPrimitive()
 	//衝突判定用のデバッグ円柱を描画
 	debugRenderer->DrawCylinder(position, radius, height, DirectX::XMFLOAT4(0, 0, 0, 1));
 
-	////弾丸デバッグプリミティブ描画
-	//projectileManager.DrawDebugPrimitive();
+	//ボールデバッグプリミティブ
+	ballManager.DrawDebugPrimitive();
 }
 
 //プレイヤーとエネミーの衝突処理

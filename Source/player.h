@@ -39,6 +39,9 @@ public:
 
 	//void HitBack(const DirectX::XMFLOAT3& impulse);
 
+	//ƒ{[ƒ‹”­Ëˆ—
+	void InputBall();
+
 protected:
 	void OnLanding() override;
 
@@ -61,6 +64,11 @@ private:
 	int   jumpCount = 0;
 	int   jumpLimit = 2;
 
-	int SwingZone = 200;
+	int SwingZone = 0;
+	int PitchZone = 0;
 	bool isSwing = false;
+	float Launch_Timer = 300;
+
+	//”­Ë‰Â”Û
+	bool LaunchReady = true;
 };

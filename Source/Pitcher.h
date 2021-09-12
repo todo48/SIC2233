@@ -13,16 +13,6 @@ public:
 	Pitcher();
 	~Pitcher() override;
 
-	static Pitcher& Instance()
-	{
-		static Pitcher instance;
-		return instance;
-	}
-
-	
-
-	static int PitchZone;
-
 	//更新処理
 	void Update(float elapsedTime);
 
@@ -34,10 +24,6 @@ public:
 
 	//デバッグプリミティブ描画
 	void DrawDebugPrimitive();
-
-	//ボール発射処理
-	void InputBall();
-
 	
 protected:
 	void OnLanding() override;
@@ -45,6 +31,4 @@ protected:
 private:
 	Model* model = nullptr;
 	Effect* hiteffect = nullptr;
-	float Launch_Timer = 300;
-
 }; 
