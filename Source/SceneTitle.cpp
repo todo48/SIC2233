@@ -37,10 +37,9 @@ void SceneTitle::Update(float elapsedTime)
 
     //なにかボタンを押したら次のシーンへ切り替え
     const GamePadButton anyButton =
-        GamePad::BTN_C |
-        GamePad::BTN_B |
-        GamePad::BTN_X |
-        GamePad::BTN_Y;
+        GamePad::BTN_Q | GamePad::BTN_W | GamePad::BTN_E |
+        GamePad::BTN_A | GamePad::BTN_S | GamePad::BTN_D |
+        GamePad::BTN_Z | GamePad::BTN_X | GamePad::BTN_C;
 
 
     // BGM
