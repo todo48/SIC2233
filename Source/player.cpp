@@ -35,20 +35,16 @@ void Player::Update(float elapsedTime)
 	//position.x += moveVec.x * moveSpeed;
 	//position.z += moveVec.z * moveSpeed;
 
-
-	BaseBall* baseball = new BaseBall(&ballManager);
-
-
 	//Pitcher pitcher = Pitcher::Instance();
 	
 
-
-	if (isSwing == true && SwingZone == Pitcher::Instance().PitchZone) //&&baseball->GetPosition().z > 0)
-	{
-		//AddImpulse(impulse);
-		baseball->Destroy();
-		isSwing = false;
-	}
+	//BaseBall* baseball = new BaseBall(&ballManager);
+	//if (isSwing == true /*&& SwingZone == Pitcher::Instance().PitchZone*/ &&baseball->GetPosition().z > 0)
+	//{
+	//	//AddImpulse(impulse);
+	//	baseball->Destroy();
+	//	isSwing = false;
+	//}
 
 	////à⁄ìÆì¸óÕèàóù
 	InputMove(elapsedTime);
@@ -213,17 +209,17 @@ void Player::InputMove(float elapsedTime)
 			isSwing = true;
 			SwingZone = 3;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_LEFT)
+		else if (gamePad.GetButtonDown() & GamePad::BTN_A)
 		{
 			isSwing = true;
 			SwingZone = 4;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_DOWN)
+		else if (gamePad.GetButtonDown() & GamePad::BTN_S)
 		{
 			isSwing = true;
 			SwingZone = 5;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_RIGHT)
+		else if (gamePad.GetButtonDown() & GamePad::BTN_D)
 		{
 			isSwing = true;
 			SwingZone = 6;
@@ -233,7 +229,7 @@ void Player::InputMove(float elapsedTime)
 			isSwing = true;
 			SwingZone = 7;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_UP)
+		else if (gamePad.GetButtonDown() & GamePad::BTN_W)
 		{
 			isSwing = true;
 			SwingZone = 8;
