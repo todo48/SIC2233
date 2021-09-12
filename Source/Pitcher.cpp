@@ -8,6 +8,8 @@
 #include"player.h"
 
 
+int Pitcher::PitchZone = 0;
+
 //コンストラクタ
 Pitcher::Pitcher()
 {

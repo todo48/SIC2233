@@ -63,6 +63,6 @@ private:
 	int   jumpCount = 0;
 	int   jumpLimit = 2;
 
-	int SwingZone = 0;
+	int SwingZone = 200;
 	bool isSwing = false;
 };

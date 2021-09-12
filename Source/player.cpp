@@ -41,9 +41,9 @@ void Player::Update(float elapsedTime)
 
 	//Pitcher pitcher = Pitcher::Instance();
 	
+	
 
-
-	if (isSwing == true && SwingZone == Pitcher::Instance().PitchZone) //&&baseball->GetPosition().z > 0)
+	if (isSwing == true && SwingZone == Pitcher::Instance().PitchZone) //&& baseball->GetPosition().z < 0);
 	{
 		//AddImpulse(impulse);
 		baseball->Destroy();

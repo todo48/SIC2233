@@ -21,7 +21,7 @@ public:
 
 	
 
-	int PitchZone = 0;
+	static int PitchZone;
 
 	//XVˆ—
 	void Update(float elapsedTime);
