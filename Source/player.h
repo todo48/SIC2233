@@ -39,8 +39,6 @@ public:
 
 	//void HitBack(const DirectX::XMFLOAT3& impulse);
 
-	BallManager ballManager;
-
 protected:
 	void OnLanding() override;
 
