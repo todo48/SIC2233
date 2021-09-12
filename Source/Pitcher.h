@@ -24,7 +24,8 @@ public:
 
 	//デバッグプリミティブ描画
 	void DrawDebugPrimitive();
-	
+
+
 protected:
 	void OnLanding() override;
 	

@@ -66,7 +66,7 @@ void Player::Update(float elapsedTime)
 	//ボール更新処理
 	ballManager.Update(elapsedTime);
 
-
+	HitChecktoBall();
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
@@ -118,8 +118,6 @@ void Player::DrawDebugGUI()
 	}
 	ImGui::End();
 }
-
-
 
 void Player::InputMove(float elapsedTime)
 {
@@ -384,6 +382,19 @@ void Player::InputBall()
 	LaunchReady = false;
 }
 
+void Player::HitChecktoBall()
+{
+	if (//当たっていたら)
+	{
+		HitBack();
+	}
+}
+
+void Player::HitBack()
+{
+	//打ち返す
+}
+
 DirectX::XMFLOAT3 Player::GetMoveVec()const
 {
 	//入力情報を取得
@@ -456,6 +467,11 @@ void Player::DrawDebugPrimitive()
 	ballManager.DrawDebugPrimitive();
 }
 
+void Player::OnLanding()
+{
+	jumpCount = 0;
+}
+
 //プレイヤーとエネミーの衝突処理
 //void Player::CollisionPlayerVsEnemies()
 //{
@@ -513,12 +529,8 @@ void Player::DrawDebugPrimitive()
 //	}
 //
 //}
-
-
 //慣性移動　物理　外部から力がかかっていなければ止まっていたらずっと動いていたらずっと
 //物理エンジンとの違い　質量の違い　質量と力で全て求める　
-
-
 //ジャンプ入力処理
 //void Player::InputJump()
 //{
@@ -535,12 +547,6 @@ void Player::DrawDebugPrimitive()
 //		
 //	}
 //}
-
-void Player::OnLanding()
-{
-	jumpCount = 0;
-}
-
 //void Player::InputProjectile()
 //{
 //	GamePad& gamePad = Input::Instance().GetGamePad();

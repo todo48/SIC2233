@@ -29,18 +29,19 @@ public:
 	//デバッグプリミティブ描画
 	void DrawDebugPrimitive();
 
-	////弾丸入力処理
-	//void InputProjectile();
-
-	////ジャンプ入力処理
-	//void InputJump();
-
-	//void CollisionProjectilesVsEnemies();
-
-	//void HitBack(const DirectX::XMFLOAT3& impulse);
-
 	//ボール発射処理
 	void InputBall();
+
+	void HitChecktoBall();
+
+	void HitBack();
+
+	////弾丸入力処理
+	//void InputProjectile();
+	////ジャンプ入力処理
+	//void InputJump();
+	//void CollisionProjectilesVsEnemies();
+	//void HitBack(const DirectX::XMFLOAT3& impulse);
 
 protected:
 	void OnLanding() override;
