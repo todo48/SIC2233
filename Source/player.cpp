@@ -50,8 +50,10 @@ void Player::Update(float elapsedTime)
 
 	//ボール発射処理
 	if(LaunchReady == true)
-	InputBall();
 
+	if(LaunchReady_2 == true)
+
+	InputBall();
 	//発射準備
 	if (LaunchReady == false)
 	{
@@ -60,6 +62,15 @@ void Player::Update(float elapsedTime)
 		{
 			Launch_Timer = 300;
 			LaunchReady = true;
+		}
+	}
+	if (LaunchReady_2 == false)
+	{
+		Launch_Timer--;
+		if (Launch_Timer < 0)
+		{
+			Launch_Timer = 300;
+			LaunchReady_2 = true;
 		}
 	}
 
@@ -380,19 +391,72 @@ void Player::InputBall()
 	//発射
 	baseball->Launch(dir, pos, target);
 	LaunchReady = false;
+
+	BaseBall* baseball_2 = new BaseBall(&ballManager);
+	//前方向
+	DirectX::XMFLOAT3 dir_2;
+	dir_2.x = sinf(angle.y);
+	dir_2.y = 0.0f;
+	dir_2.z = cosf(angle.y);
+
+	//発射位置
+	DirectX::XMFLOAT3 pos_2;
+	pos_2.x = 0;
+	pos_2.y = 0.5;
+	pos_2.z = 0;
+
+	//投げる位置(デフォルトでは　S　の位置)
+	DirectX::XMFLOAT3 target_2;
+	target_2.x = 0;
+	target_2.y = 10;
+	target_2.z = 10;
+
+	DirectX::XMVECTOR PitchPos_2 = { 0,1.5,50 };
+	DirectX::XMVECTOR ZonePos_2 = { 0,0,0 };
+	DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
+	DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
+
+	baseball_2->Launch(dir_2, pos_2, target_2);
+
+	LaunchReady_2 = false;
+#if 0
+
+	if (){}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+	else if () {}
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 void Player::HitChecktoBall()
 {
-	if (//当たっていたら)
-	{
-		HitBack();
-	}
 }
 
 void Player::HitBack()
 {
 	//打ち返す
+
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const

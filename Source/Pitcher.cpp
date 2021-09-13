@@ -10,7 +10,7 @@
 //コンストラクタ
 Pitcher::Pitcher()
 {
-	model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
+	model = new Model("Data/Model/Machine/Machine.mdl");
 
 	hiteffect = new Effect("Data/Effect/NewHit.efk");
 	//モデルが大きいのでスケーリング

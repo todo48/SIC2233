@@ -37,6 +37,12 @@ void SceneGame::Initialize()
 		1000.0f
 	);
 
+	DirectX::XMFLOAT3 eye = player->GetPosition();
+	eye.y += 1.5;
+	eye.z += 2.0;
+	cameraController->SetEye(eye);
+	cameraController->Update(0);
+
 	// 2Dスプライト
 
 	scenegame_ui = new Sprite("Data/Sprite/UI_SceneGame_S1.png");

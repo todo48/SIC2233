@@ -203,6 +203,9 @@ void LambertShader::Draw(ID3D11DeviceContext* dc, const Model* model)
 
 	for (const ModelResource::Mesh& mesh : resource->GetMeshes())
 	{
+		if (mesh.vertexBuffer == nullptr) continue;
+		if (mesh.indexBuffer == nullptr) continue;
+
 		// メッシュ用定数バッファ更新
 		CbMesh cbMesh;
 		::memset(&cbMesh, 0, sizeof(cbMesh));

@@ -3,10 +3,15 @@
 //コンストラクタ
 BaseBall::BaseBall(BallManager* manager):Ball(manager)
 {
-	model = new Model("Data/Model/SpikeBall/SpikeBall.mdl");
 
-	//モデルが小さいのでスケーリング
-	scale.x = scale.y = scale.z = 0.2f;
+#if 1
+	model = new Model("Data/Model/SpikeBall/SpikeBall.mdl");
+	 scale.x = scale.y = scale.z = 0.2f;
+#else
+	model = new Model("Data/Model/Ball/Ball.mdl");
+	scale.x = scale.y = scale.z = 0.0005f;
+#endif
+	//モデルが大きいのでスケーリング
 }
 
 //デストラクタ

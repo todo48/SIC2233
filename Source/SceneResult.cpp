@@ -134,9 +134,9 @@ void SceneResult::Render()
         Third = 1234567890;
 
         //sprites[0]->textout(dc, i, 0, 0, 16, 16, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Score), 850, 235, 100, 100, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(First), 850, 460, 100, 100, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Second),850, 635, 100, 100, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Third), 850, 810, 100, 100, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Score), 850 -200, 235 -40 , 65, 65, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(First), 850 -200, 460 -0 , 65, 65, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Second),850 -200, 635 -0 , 65, 65, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Third), 850 -200, 810 -0 , 65, 65, 1, 1, 1, 1);
     }
 }
