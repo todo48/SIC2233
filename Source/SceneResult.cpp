@@ -20,6 +20,7 @@ void SceneResult::Initialize()
 
     title_timer = 26;
     state = 0;
+
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -95,6 +96,9 @@ void SceneResult::Update(float elapsedTime)
 #endif
         }
     }
+
+
+
 }
 
 //•`‰æˆ—
@@ -124,9 +128,15 @@ void SceneResult::Render()
             0,
             1, 1, 1, 1);
 
-        int i = 45;
+        Score = 1234567890;
+        First = 1234567890;
+        Second = 1234567890;
+        Third = 1234567890;
 
         //sprites[0]->textout(dc, i, 0, 0, 16, 16, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(i), 200, 200, 32, 32, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Score), 850, 235, 100, 100, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(First), 850, 460, 100, 100, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Second),850, 635, 100, 100, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(Third), 850, 810, 100, 100, 1, 1, 1, 1);
     }
 }

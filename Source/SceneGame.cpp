@@ -95,7 +95,7 @@ void SceneGame::Update(float elapsedTime)
 	pitcher->Update(elapsedTime);
 
 	// BGM
-	Game->Play();
+	//Game->Play();
 
 	//カメラコントローラー更新処理
 	DirectX::XMFLOAT3 eye = player->GetPosition();

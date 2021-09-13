@@ -36,7 +36,10 @@ private:
 public:
     int state = 0;
     int title_timer = 0;
-
+    int Score = 0;
+    int First = 0;
+    int Second = 0;
+    int Third = 0;
 private:
     Sprite* Result = nullptr;
 
