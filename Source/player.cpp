@@ -247,7 +247,7 @@ void Player::InputBall()
 	case 1:
 		target.x = 0;
 		target.y = 1.50;
-		target.z = 0;
+		target.z = -20;
 		PitchZone = 1;
 		break;
 	case 2:

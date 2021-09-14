@@ -25,11 +25,11 @@ void BaseBall::Update(float elapsedTime)
 {
 	//õ–½ˆ—
 	//lifeTimer -= elapsedTime;
-	//if (position.z < -10)
-	//{
-	//	//©•ª‚ğíœ
-	//	Destroy();	
-	//}
+	if (position.z < -10)
+	{
+		//©•ª‚ğíœ
+		Destroy();	
+	}
 
 	//ˆÚ“®
 	{
