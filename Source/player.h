@@ -74,5 +74,5 @@ private:
 	float Timer = 300;
 	//”­ŽË‰Â”Û
 	bool LaunchReady = true;
-	bool LaunchReady_2 = true;
+	bool LaunchReady_2 = false;
 };

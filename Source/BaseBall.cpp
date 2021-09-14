@@ -5,8 +5,8 @@ BaseBall::BaseBall(BallManager* manager):Ball(manager)
 {
 
 #if 1
-	model = new Model("Data/Model/SpikeBall/SpikeBall.mdl");
-	 scale.x = scale.y = scale.z = 0.2f;
+	model = new Model("Data/Model/Ball/Ball2.mdl");
+	 scale.x = scale.y = scale.z = 0.005f;
 #else
 	model = new Model("Data/Model/Ball/Ball.mdl");
 	scale.x = scale.y = scale.z = 0.0005f;
@@ -25,11 +25,11 @@ void BaseBall::Update(float elapsedTime)
 {
 	//éıñΩèàóù
 	//lifeTimer -= elapsedTime;
-	if (position.z < -10)
-	{
-		//é©ï™ÇçÌèú
-		Destroy();	
-	}
+	//if (position.z < -10)
+	//{
+	//	//é©ï™ÇçÌèú
+	//	Destroy();	
+	//}
 
 	//à⁄ìÆ
 	{

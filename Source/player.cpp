@@ -45,14 +45,11 @@ void Player::Update(float elapsedTime)
 	////弾丸と球の衝突処理
 	//CollisionProjectilesVsEnemies();
 
-	////移動入力処理
+	SwingZone = 0;
 	InputMove(elapsedTime);
 
 	//ボール発射処理
 	if(LaunchReady == true)
-
-	if(LaunchReady_2 == true)
-
 	InputBall();
 	//発射準備
 	if (LaunchReady == false)
@@ -64,16 +61,6 @@ void Player::Update(float elapsedTime)
 			LaunchReady = true;
 		}
 	}
-	if (LaunchReady_2 == false)
-	{
-		Launch_Timer--;
-		if (Launch_Timer < 0)
-		{
-			Launch_Timer = 300;
-			LaunchReady_2 = true;
-		}
-	}
-
 	//ボール更新処理
 	ballManager.Update(elapsedTime);
 
@@ -84,9 +71,45 @@ void Player::Update(float elapsedTime)
 
 	//オブジェクト行列を更新
 	UpdateTransform();
-
+	
 	//モデル行列更新
 	model->UpdateTransform(transform);
+	if (ballManager.GetBallCount() > 0)
+	{
+		BaseBall* baseball = dynamic_cast<BaseBall*>(ballManager.GetBall(0));
+		if (baseball)
+		{
+			if (SwingZone == PitchZone && baseball->GetPosition().z > 0 && baseball->GetPosition().z < 3)
+			{
+				BaseBall* baseball_2 = new BaseBall(&ballManager);
+				//前方向
+				DirectX::XMFLOAT3 dir_2;
+				dir_2.x = sinf(angle.y);
+				dir_2.y = 0.0f;
+				dir_2.z = cosf(angle.y);
+				//発射位置
+				DirectX::XMFLOAT3 pos_2;
+				pos_2.x = 0;
+				pos_2.y = 0.5;
+				pos_2.z = 0;
+				//投げる位置(デフォルトでは　S　の位置)
+				DirectX::XMFLOAT3 target_2;
+				target_2.x = 0;
+				target_2.y = 10;
+				target_2.z = 10;
+				DirectX::XMVECTOR PitchPos_2 = { 0,1.5,50 };
+				DirectX::XMVECTOR ZonePos_2 = { 0,0,0 };
+				DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
+				DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
+
+				baseball_2->Launch(dir_2, pos_2, target_2);
+				LaunchReady_2 = false;
+				baseball;
+			}
+		}
+	}
+	
+	
 
 }	
 
@@ -223,7 +246,7 @@ void Player::InputBall()
 		break;
 	case 1:
 		target.x = 0;
-		target.y = 1.75;
+		target.y = 1.50;
 		target.z = 0;
 		PitchZone = 1;
 		break;
@@ -392,59 +415,7 @@ void Player::InputBall()
 	baseball->Launch(dir, pos, target);
 	LaunchReady = false;
 
-	BaseBall* baseball_2 = new BaseBall(&ballManager);
-	//前方向
-	DirectX::XMFLOAT3 dir_2;
-	dir_2.x = sinf(angle.y);
-	dir_2.y = 0.0f;
-	dir_2.z = cosf(angle.y);
-
-	//発射位置
-	DirectX::XMFLOAT3 pos_2;
-	pos_2.x = 0;
-	pos_2.y = 0.5;
-	pos_2.z = 0;
-
-	//投げる位置(デフォルトでは　S　の位置)
-	DirectX::XMFLOAT3 target_2;
-	target_2.x = 0;
-	target_2.y = 10;
-	target_2.z = 10;
-
-	DirectX::XMVECTOR PitchPos_2 = { 0,1.5,50 };
-	DirectX::XMVECTOR ZonePos_2 = { 0,0,0 };
-	DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
-	DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
-
-	baseball_2->Launch(dir_2, pos_2, target_2);
-
-	LaunchReady_2 = false;
-#if 0
-
-	if (){}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-	else if () {}
-#endif
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 
 }
