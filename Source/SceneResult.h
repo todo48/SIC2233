@@ -2,6 +2,7 @@
 
 #include "Graphics/Sprite.h"
 #include "Scene.h"
+#include"player.h"
 #include"Audio/Audio.h"
 
 //タイトルシーン
@@ -42,6 +43,6 @@ public:
     int Third = 0;
 private:
     Sprite* Result = nullptr;
-
+    Player* player = nullptr;
     int Countre_1st = 0;
 };

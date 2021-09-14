@@ -10,6 +10,9 @@
 #include"Pitcher.h"
 #include"BaseBall.h"
 
+int Player::ScoreCount = 0;
+
+
 //コンストラクタ
 Player::Player()
 {
@@ -101,7 +104,7 @@ void Player::Update(float elapsedTime)
 				DirectX::XMVECTOR ZonePos_2 = { 0,0,0 };
 				DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
 				DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
-
+				ScoreCount++;
 				baseball_2->Launch(dir_2, pos_2, target_2);
 				LaunchReady_2 = false;
 				baseball;

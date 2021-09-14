@@ -5,7 +5,7 @@
 #include "SceneManager.h"
 #include "Input/Input.h"
 #include "SceneLoading.h"
-
+#include"player.h"
 
 //初期化
 void SceneResult::Initialize()
@@ -13,7 +13,7 @@ void SceneResult::Initialize()
     //スプライト初期化
     sprites[0] = std::make_unique<Sprite>("Data/Fonts/font3.png");
     Result = new Sprite("Data/Sprite/Result.png");
-
+    player = new Player();
     //Audio初期化
     AResult = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Result.wav", true);
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\GameStart.wav", true);
@@ -29,6 +29,7 @@ void SceneResult::Initialize()
 void  SceneResult::Finalize()
 {
     DELETE_IF(Result);
+    DELETE_IF(player);
 }
 
 //更新処理
@@ -128,7 +129,7 @@ void SceneResult::Render()
             0,
             1, 1, 1, 1);
 
-        Score = 1234567890;
+        Score = player->GetScore();
         First = 1234567890;
         Second = 1234567890;
         Third = 1234567890;

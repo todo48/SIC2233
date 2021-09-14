@@ -36,12 +36,16 @@ public:
 
 	void HitBack();
 
+	int GetScore() { return Score; }
+
 	////’eŠÛ“ü—Íˆ—
 	//void InputProjectile();
 	////ƒWƒƒƒ“ƒv“ü—Íˆ—
 	//void InputJump();
 	//void CollisionProjectilesVsEnemies();
 	//void HitBack(const DirectX::XMFLOAT3& impulse);
+
+	static int ScoreCount;
 
 protected:
 	void OnLanding() override;
@@ -70,6 +74,8 @@ private:
 	bool isSwing = false;
 	float Launch_Timer = 300;
 	float Launch_Timer_2 = 300;
+
+	int Score = 0;
 
 	float Timer = 300;
 	//”­Ë‰Â”Û
