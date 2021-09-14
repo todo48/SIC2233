@@ -9,11 +9,14 @@
 #include"Input/Input.h"
 #include "SceneResult.h"
 #include "SceneManager.h"
+#include "ScoreManager.h"
 
 
 // 初期化
 void SceneGame::Initialize()
 {
+	ScoreManager::Instance().Score = 0;
+
 	//ステージ初期化
 	stage = new Stage();
 	//プレイヤー初期化
@@ -120,6 +123,8 @@ void SceneGame::Update(float elapsedTime)
 
 	if (gamePad.GetButtonDown() & GamePad::BTN_J)
 	{
+		ScoreManager::Instance().AddScore(ScoreManager::Instance().Score);
+
 		SceneManager::Instance().ChangeScene(new SceneResult);
 	}
 

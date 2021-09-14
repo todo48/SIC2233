@@ -9,7 +9,7 @@
 #include"ProjectileHoming.h"
 #include"Pitcher.h"
 #include"BaseBall.h"
-
+#include"ScoreManager.h"
 int Player::ScoreCount = 0;
 
 
@@ -107,7 +107,7 @@ void Player::Update(float elapsedTime)
 				ScoreCount++;
 				baseball_2->Launch(dir_2, pos_2, target_2);
 				LaunchReady_2 = false;
-				baseball;
+				ScoreManager::Instance().Score++;
 			}
 		}
 	}
@@ -171,6 +171,7 @@ void Player::InputMove(float elapsedTime)
 		{
 			isSwing = true;
 			SwingZone = 1;
+			
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
 		{

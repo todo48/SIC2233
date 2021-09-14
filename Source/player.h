@@ -36,7 +36,7 @@ public:
 
 	void HitBack();
 
-	int GetScore() { return Score; }
+//	int GetScore() { return Score; }
 
 	////’eŠÛ“ü—Íˆ—
 	//void InputProjectile();
@@ -75,7 +75,7 @@ private:
 	float Launch_Timer = 300;
 	float Launch_Timer_2 = 300;
 
-	int Score = 0;
+//	int Score = 0;
 
 	float Timer = 300;
 	//”­Ë‰Â”Û

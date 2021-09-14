@@ -6,21 +6,21 @@
 #include "Input/Input.h"
 #include "SceneLoading.h"
 #include"player.h"
-
+#include "ScoreManager.h"
 //初期化
 void SceneResult::Initialize()
 {
     //スプライト初期化
     sprites[0] = std::make_unique<Sprite>("Data/Fonts/font3.png");
     Result = new Sprite("Data/Sprite/Result.png");
-    player = new Player();
+    
     //Audio初期化
     AResult = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Result.wav", true);
     GameStart = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\GameStart.wav", true);
 
     title_timer = 26;
     state = 0;
-
+    Ranking_State = 0;
 }
 
 #define DELETE_IF(x) if( (x) != nullptr ){ delete (x); x = nullptr;}
@@ -28,24 +28,17 @@ void SceneResult::Initialize()
 //終了化
 void  SceneResult::Finalize()
 {
-    DELETE_IF(Result);
-    DELETE_IF(player);
+    DELETE_IF(Result);    
 }
 
 //更新処理
 void SceneResult::Update(float elapsedTime)
 {
+    //  ランキング処理
+
     GamePad& gamePad = Input::Instance().GetGamePad();
     AResult->Play();
 
-#if 0
-    //なにかボタンを押したら次のシーンへ切り替え
-    const GamePadButton anyButton =
-        GamePad::BTN_A |
-        GamePad::BTN_B |
-        GamePad::BTN_X |
-        GamePad::BTN_Y;
-#endif
     switch (state)
     {
     case 0:
@@ -57,8 +50,6 @@ void SceneResult::Update(float elapsedTime)
 
             state += 1;
         }
-
-
         // ゲームに戻る
         if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
         {
@@ -67,10 +58,7 @@ void SceneResult::Update(float elapsedTime)
 
             state += 2;
         }
-
-
         break;
-
     case 1:
         title_timer--;
         if (title_timer < 0)
@@ -83,7 +71,6 @@ void SceneResult::Update(float elapsedTime)
 #endif
         }
         break;
-
     case 2:
         title_timer--;
         if (title_timer < 0)
@@ -97,8 +84,6 @@ void SceneResult::Update(float elapsedTime)
 #endif
         }
     }
-
-
 
 }
 
@@ -129,15 +114,18 @@ void SceneResult::Render()
             0,
             1, 1, 1, 1);
 
-        Score = player->GetScore();
-        First = 1234567890;
-        Second = 1234567890;
-        Third = 1234567890;
-
         //sprites[0]->textout(dc, i, 0, 0, 16, 16, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Score), 850 -200, 235 -40 , 65, 65, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(First), 850 -200, 460 -0 , 65, 65, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Second),850 -200, 635 -0 , 65, 65, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(Third), 850 -200, 810 -0 , 65, 65, 1, 1, 1, 1);
+        sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 850 -190, 235 -40 , 65, 65, 1, 1, 1, 1);
+       
+
+        for (int i = 0; i < ScoreManager::Instance().Size(); ++i) {
+            sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().GetRankingScore(i)),
+                850 - 190 , 380 + (140 * i), 
+                65, 65,
+                1, 1, 1, 1);
+            if (i == 2)
+                break;
+        }
+
     }
 }
