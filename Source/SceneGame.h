@@ -36,7 +36,12 @@ public:
 	std::unique_ptr<AudioSource> Hit;
 	std::unique_ptr<AudioSource> Ballcatch;
 
-
+public:
+	//DirectX11で利用する様々なリソースを作成するやつ
+	Microsoft::WRL::ComPtr<ID3D11Device>device;
+	//ID3D11DeviceContext* immediate_context;
+	Microsoft::WRL::ComPtr<ID3D11DeviceContext> immediate_context;
+	std::unique_ptr<Sprite>sprites[8];
 private:
 	Stage* stage = nullptr;
 	Player* player = nullptr;
@@ -45,5 +50,7 @@ private:
 	CameraController* cameraController = nullptr;
 	
 
-	Sprite* scenegame_ui = nullptr;
+	Sprite* scenegame_s0_ui = nullptr;
+	Sprite* scenegame_s1_ui = nullptr;
+	Sprite* scenegame_s2_ui = nullptr;
 };

@@ -16,6 +16,7 @@
 void SceneGame::Initialize()
 {
 	ScoreManager::Instance().Score = 0;
+	ScoreManager::Instance().Strike = 0;
 
 	//ステージ初期化
 	stage = new Stage();
@@ -46,9 +47,13 @@ void SceneGame::Initialize()
 	cameraController->SetEye(eye);
 	cameraController->Update(0);
 
+	// 2Dフォント
+	sprites[0] = std::make_unique<Sprite>("Data/Fonts/font3.png");
 	// 2Dスプライト
 
-	scenegame_ui = new Sprite("Data/Sprite/UI_SceneGame_S1.png");
+	scenegame_s0_ui = new Sprite("Data/Sprite/UI_SceneGame_S0.png");
+	scenegame_s1_ui = new Sprite("Data/Sprite/UI_SceneGame_S1.png");
+	scenegame_s2_ui = new Sprite("Data/Sprite/UI_SceneGame_S2.png");
 
 	//Audio初期化
 	Game		 = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Game.wav", true);
@@ -117,11 +122,15 @@ void SceneGame::Update(float elapsedTime)
 	EffectManager::Instance().Update(elapsedTime);
 
 
+
 	// 
-
-	GamePad& gamePad = Input::Instance().GetGamePad();
-
-	if (gamePad.GetButtonDown() & GamePad::BTN_J)
+	//GamePad& gamePad = Input::Instance().GetGamePad();
+	//if (gamePad.GetButtonDown() & GamePad::BTN_J)
+	//{
+	//	ScoreManager::Instance().AddScore(ScoreManager::Instance().Score);
+	//	SceneManager::Instance().ChangeScene(new SceneResult);
+	//}
+	if (ScoreManager::Instance().Strike == 3)
 	{
 		ScoreManager::Instance().AddScore(ScoreManager::Instance().Score);
 
@@ -175,17 +184,42 @@ void SceneGame::Render()
 
 	// 2Dスプライト描画
 	{
-		float screenWidth = static_cast<float>(graphics.GetScreenWidth());
-		float screenHeight = static_cast<float>(graphics.GetScreenHeight());
-		float textureWidth = static_cast<float>(scenegame_ui->GetTextureWidth());
-		float textureHeight = static_cast<float>(scenegame_ui->GetTextureHeight());
-		scenegame_ui->Render(dc,
+		float screenWidth	 = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight	 = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth	 = static_cast<float>(scenegame_s0_ui->GetTextureWidth());
+		float textureHeight	 = static_cast<float>(scenegame_s0_ui->GetTextureHeight());
+		scenegame_s0_ui->Render(dc,
 			0, 0, screenWidth, screenHeight,
 			0, 0, textureWidth, textureHeight,
 			0,
 			1, 1, 1, 1);
 	}
 
+	if (ScoreManager::Instance().Strike == 1)
+	{
+		float screenWidth	 = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight	 = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth	 = static_cast<float>(scenegame_s1_ui->GetTextureWidth());
+		float textureHeight	 = static_cast<float>(scenegame_s1_ui->GetTextureHeight());
+		scenegame_s1_ui->Render(dc,
+			0, 0, screenWidth, screenHeight,
+			0, 0, textureWidth, textureHeight,
+			0,
+			1, 1, 1, 1);
+	}
+	
+	if (ScoreManager::Instance().Strike == 2)
+	{
+		float screenWidth	 = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight	 = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth	 = static_cast<float>(scenegame_s2_ui->GetTextureWidth());
+		float textureHeight	 = static_cast<float>(scenegame_s2_ui->GetTextureHeight());
+		scenegame_s2_ui->Render(dc,
+			0, 0, screenWidth, screenHeight,
+			0, 0, textureWidth, textureHeight,
+			0,
+			1, 1, 1, 1);
+	}
 
 
 
@@ -210,7 +244,7 @@ void SceneGame::Render()
 	}
 
 	
-
+	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 240, 160, 75, 75, 1, 1, 1, 1);
 	// 2DデバッグGUI描画
 	{
 		player->DrawDebugGUI();

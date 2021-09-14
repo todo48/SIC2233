@@ -13,9 +13,10 @@ public:
         static ScoreManager instance;
         return instance;
     }
+
     // 現在のスコア
     int Score ;
-
+    int Strike;
 
 
     // s...今回のスコア

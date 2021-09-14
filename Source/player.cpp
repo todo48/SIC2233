@@ -109,6 +109,10 @@ void Player::Update(float elapsedTime)
 				LaunchReady_2 = false;
 				ScoreManager::Instance().Score++;
 			}
+			else if (baseball->GetPosition().z == -5)
+			{
+				ScoreManager::Instance().Strike++;
+			}
 		}
 	}
 	
@@ -171,6 +175,7 @@ void Player::InputMove(float elapsedTime)
 		{
 			isSwing = true;
 			SwingZone = 1;
+				ScoreManager::Instance().Score++;
 			
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
