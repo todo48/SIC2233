@@ -15,7 +15,8 @@ Pitcher::Pitcher()
 	hiteffect = new Effect("Data/Effect/NewHit.efk");
 	//モデルが大きいのでスケーリング
 	scale.x = scale.y = scale.z = 0.02f;
-	position = {0,0,50};
+	angle.y = 1.5708*2;
+	position = {0.3,0,30};
 }
 
 //デストラクタ

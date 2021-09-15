@@ -23,11 +23,14 @@ void Stage::UpdateTransform()
 Stage::Stage()
 {
 	//ステージモデルを読み込み
-	model = new Model("Data/Model/Stage/Stage.mdl");
+	model = new Model("Data/Model/Stage/Stage2.mdl");
 	//model = new Model("Data/Model/ExampleStage/ExampleStage.mdl");
 
-	position.y = -10;
-	scale.x = scale.y = scale.z = 0.5;
+	position.y = -2*3;
+	position.z = 57.5;
+	position.x = -0.8*3;
+	angle.y = 1.5708;
+	scale.x = scale.y = scale.z = 0.3;
 }
 
 //デストラクタ

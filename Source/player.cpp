@@ -65,12 +65,25 @@ void Player::Update(float elapsedTime)
 		}
 	}
 
+	if (SwingTimer < 0.1)
+	{
+		isSwing = false;
+	}
+
+
+	if (isSwing == true)
+	{
+		SwingTimer = 120;
+		SwingTimer--;
+	}
+
 	if (ballManager.GetBallCount() > 0)
 	{
 		BaseBall* baseball = dynamic_cast<BaseBall*>(ballManager.GetBall(0));
 		if (baseball)
 		{
-			if (SwingZone == PitchZone && baseball->GetPosition().z > 0 && baseball->GetPosition().z < 3)
+			//ヒット
+			if (isSwing == true && PitchZone && baseball->GetPosition().z > 0 && baseball->GetPosition().z < 3)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				//前方向
@@ -97,7 +110,9 @@ void Player::Update(float elapsedTime)
 				LaunchReady_2 = false;
 				ScoreManager::Instance().Score++;
 			}
-			else if (SwingZone != PitchZone && baseball->GetPosition().z < -10)
+
+			//ストライク
+			if (SwingZone != PitchZone && baseball->GetPosition().z < -10)
 			{
 				ScoreManager::Instance().Strike++;
 			}
@@ -108,7 +123,6 @@ void Player::Update(float elapsedTime)
 	//ボール更新処理
 	ballManager.Update(elapsedTime);
 
-	HitChecktoBall();
 
 	//速度処理更新
 	UpdateVelocity(elapsedTime);
@@ -177,47 +191,56 @@ void Player::InputMove(float elapsedTime)
 	{
 		if (gamePad.GetButtonDown() & GamePad::BTN_Z)
 		{
+			if(SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 1;
 			ScoreManager::Instance().Score++;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 2;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_C)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 3;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_A)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 4;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_S)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 5;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_D)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 6;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_Q)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 7;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_W)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 8;
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_E)
 		{
+			if (SwingTimer < 0.1)
 			isSwing = true;
 			SwingZone = 9;
 		}
@@ -266,49 +289,49 @@ void Player::InputBall()
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 2;
 		break;
 	case 3:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 3;
 		break;
 	case 4:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 4;
 		break;
 	case 5:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 5;
 		break;
 	case 6:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 6;
 		break;
 	case 7:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 7;
 		break;
 	case 8:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 8;
 		break;
 	case 9:
 		target.x = 0;
 		target.y = 1.75;
 		target.z = 0;
-		PitchZone = 1;
+		PitchZone = 9;
 		break;
 	}
 
@@ -426,20 +449,6 @@ void Player::InputBall()
 	//発射
 	baseball->Launch(dir, pos, target);
 	LaunchReady = false;
-
-	
-
-
-}
-
-void Player::HitChecktoBall()
-{
-}
-
-void Player::HitBack()
-{
-	//打ち返す
-
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const

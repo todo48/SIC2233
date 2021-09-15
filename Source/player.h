@@ -32,10 +32,6 @@ public:
 	//ƒ{[ƒ‹”­Ëˆ—
 	void InputBall();
 
-	void HitChecktoBall();
-
-	void HitBack();
-
 //	int GetScore() { return Score; }
 
 	////’eŠÛ“ü—Íˆ—
@@ -72,8 +68,9 @@ private:
 	int SwingZone = 0;
 	int PitchZone = 0;
 	bool isSwing = false;
-	float Launch_Timer = 300;
+	float Launch_Timer = 60;
 	float Launch_Timer_2 = 300;
+	float SwingTimer = 0;
 
 //	int Score = 0;
 
