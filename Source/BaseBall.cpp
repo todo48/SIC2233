@@ -9,7 +9,7 @@ BaseBall::BaseBall(BallManager* manager):Ball(manager)
 	//scale.x = scale.y = scale.z = 0.005f;
 #if 1
 	 model = new Model("Data/Model/Ball/Ball5.mdl");
-	 //scale.x = scale.y = scale.z = 0.002f;
+	 scale.x = scale.y = scale.z = 0.0002f;
 #else
 	model = new Model("Data/Model/Ball/Ball.mdl");
 	scale.x = scale.y = scale.z = 0.0005f;

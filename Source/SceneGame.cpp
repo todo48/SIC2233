@@ -115,7 +115,7 @@ void SceneGame::Update(float elapsedTime)
 
 	//カメラコントローラー更新処理
 	DirectX::XMFLOAT3 eye = player->GetPosition();
-	eye.y += 1.5;
+	eye.y += 2.8;
 	eye.z += 2.0;
 	cameraController->SetEye(eye);
 	cameraController->Update(elapsedTime);

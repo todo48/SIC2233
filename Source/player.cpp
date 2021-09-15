@@ -258,9 +258,9 @@ void Player::InputBall()
 
 	//発射位置
 	DirectX::XMFLOAT3 pos;
-	pos.x = 0;
-	pos.y = 1.5;
-	pos.z = 50;
+	pos.x = -0.3;
+	pos.y = 2.5;
+	pos.z = 30;
 
 	//投げる位置(デフォルトでは　S　の位置)
 	DirectX::XMFLOAT3 target;
