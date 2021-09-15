@@ -180,8 +180,6 @@ void Player::InputMove(float elapsedTime)
 			isSwing = true;
 			SwingZone = 1;
 			ScoreManager::Instance().Score++;
-			ScoreManager::Instance().Strike++;
-			
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
 		{
