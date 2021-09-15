@@ -124,3 +124,17 @@ void BaseBall::Launch(
 	UpdateTransform();
 	moveSpeed += 0.5f;
 }
+
+void BaseBall::Launch2(
+	const DirectX::XMFLOAT3& direction,
+	const DirectX::XMFLOAT3& position,
+	const DirectX::XMFLOAT3& target)
+{
+	this->direction = direction;
+	this->position = position;
+	this->target = target;
+
+	UpdateTransform();
+	moveSpeed += 0.5f;
+}
+

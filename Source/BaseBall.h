@@ -24,6 +24,13 @@ public:
 		const DirectX::XMFLOAT3& target
 	);
 
+	void Launch2
+	(
+		const DirectX::XMFLOAT3& direction,
+		const DirectX::XMFLOAT3& position,
+		const DirectX::XMFLOAT3& target
+	);
+
 
 private:
 	Model* model = nullptr;

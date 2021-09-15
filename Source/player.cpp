@@ -83,7 +83,7 @@ void Player::Update(float elapsedTime)
 		if (baseball)
 		{
 			//ヒット
-			if (isSwing == true && PitchZone && baseball->GetPosition().z > 0 && baseball->GetPosition().z < 3)
+			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z && baseball->GetPosition().z < position.z+13)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				//前方向
@@ -106,9 +106,10 @@ void Player::Update(float elapsedTime)
 				DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
 				DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
 				ScoreCount++;
-				baseball_2->Launch(dir_2, pos_2, target_2);
+				baseball_2->Launch2(dir_2, pos_2, target_2);
 				LaunchReady_2 = false;
 				ScoreManager::Instance().Score++;
+				baseball->Destroy();
 			}
 
 			//ストライク
