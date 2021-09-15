@@ -78,4 +78,6 @@ private:
 	//”­ŽË‰Â”Û
 	bool LaunchReady = true;
 	bool LaunchReady_2 = false;
+
+	DirectX::XMFLOAT3   HitPosition = { 0,0,0 };
 };

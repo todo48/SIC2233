@@ -65,11 +65,6 @@ void Player::Update(float elapsedTime)
 		}
 	}
 
-	if (SwingTimer < 0.1)
-	{
-		isSwing = false;
-	}
-
 
 	if (isSwing == true)
 	{
@@ -77,15 +72,24 @@ void Player::Update(float elapsedTime)
 		SwingTimer--;
 	}
 
+	if (SwingTimer < 0.1)
+	{
+		isSwing = false;
+	}
+
+
 	if (ballManager.GetBallCount() > 0)
 	{
 		BaseBall* baseball = dynamic_cast<BaseBall*>(ballManager.GetBall(0));
 		if (baseball)
 		{
 			//ヒット
-			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z && baseball->GetPosition().z < position.z + 13)
+			if (isSwing == true && SwingZone == PitchZone && baseball->GetPosition().z > position.z +2 && baseball->GetPosition().z < position.z + 7)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
+				HitPosition = baseball->GetPosition();
+				baseball->Destroy();
+
 				//前方向
 				DirectX::XMFLOAT3 dir_2;
 				dir_2.x = sinf(angle.y);
@@ -93,9 +97,7 @@ void Player::Update(float elapsedTime)
 				dir_2.z = cosf(angle.y);
 				//発射位置
 				DirectX::XMFLOAT3 pos_2;
-				pos_2.x = 0;
-				pos_2.y = 0.5;
-				pos_2.z = 0;
+				pos_2 = HitPosition;
 				//投げる位置(デフォルトでは　S　の位置)
 				DirectX::XMFLOAT3 target_2;
 				target_2.x = 0;
@@ -107,9 +109,7 @@ void Player::Update(float elapsedTime)
 				DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
 				ScoreCount++;
 				baseball_2->Launch2(dir_2, pos_2, target_2);
-				LaunchReady_2 = false;
 				ScoreManager::Instance().Score++;
-				baseball->Destroy();
 			}
 
 			//ストライク
