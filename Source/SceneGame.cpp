@@ -239,14 +239,14 @@ void SceneGame::Render()
 		pitcher->DrawDebugPrimitive();
 
 		// ラインレンダラ描画実行
-		graphics.GetLineRenderer()->Render(dc, rc.view, rc.projection);
+		//graphics.GetLineRenderer()->Render(dc, rc.view, rc.projection);
 
 		// デバッグレンダラ描画実行
-		graphics.GetDebugRenderer()->Render(dc, rc.view, rc.projection);
+		//graphics.GetDebugRenderer()->Render(dc, rc.view, rc.projection);
 	}
 
 	
-	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 240, 160, 75, 75, 1, 1, 1, 1);
+	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 180, 40, 75, 75, 1, 1, 1, 1);
 	// 2DデバッグGUI描画
 	{
 		player->DrawDebugGUI();
