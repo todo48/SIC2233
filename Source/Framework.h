@@ -6,6 +6,15 @@
 #include "Graphics/Graphics.h"
 #include "Input/input.h"
 
+#if 0 //ウィンドウのサイズ
+CONST LONG SCREEN_WIDTH{ 1920 };
+CONST LONG SCREEN_HEIGHT{ 1080 };
+#else
+CONST LONG SCREEN_WIDTH{ 1280 }; //1280
+CONST LONG SCREEN_HEIGHT{ 720 };// 720
+#endif
+CONST LPCWSTR APPLICATION_NAME{ L"安打ダービー" };
+
 class Framework
 {
 public:
