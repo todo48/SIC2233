@@ -83,7 +83,7 @@ void Player::Update(float elapsedTime)
 		if (baseball)
 		{
 			//ƒqƒbƒg
-			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z && baseball->GetPosition().z < position.z+13)
+			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z && baseball->GetPosition().z < position.z + 13)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				//‘O•ûŒü
