@@ -24,7 +24,6 @@ void Ball::DrawDebugPrimitive()
 void Ball::UpdateTransform()
 {
 	DirectX::XMVECTOR Front, Up, Right;
-
 	//前ベクトルを算出 z
 	Front = DirectX::XMLoadFloat3(&direction);
 	Front = DirectX::XMVector3Normalize(Front);
@@ -33,20 +32,15 @@ void Ball::UpdateTransform()
 	Up = DirectX::XMVectorSet(0.001f, 1, 0, 0);
 	//「同じベクトルで外積するとゼロベクトルになる」 現象を防ぐため0.001f
 	Up = DirectX::XMVector3Normalize(Up);
-
 	//右ベクトルを算出 x
 	Right = DirectX::XMVector3Cross(Up, Front);
 	Right = DirectX::XMVector3Normalize(Right);
-
 	//上ベクトルを算出 y
 	Up = DirectX::XMVector3Cross(Front, Right);
-
-
 	DirectX::XMFLOAT3 right, up, front;
 	DirectX::XMStoreFloat3(&right, Right);
 	DirectX::XMStoreFloat3(&up, Up);
 	DirectX::XMStoreFloat3(&front, Front);
-
 	//とりあえず、仮で回転は無視した行列を作成する
 	transform._11 = right.x * scale.x;
 	transform._12 = right.y * scale.x;
@@ -64,6 +58,25 @@ void Ball::UpdateTransform()
 	transform._42 = position.y;
 	transform._43 = position.z;
 	transform._44 = 1.0f;
+
+	DirectX::XMMATRIX ST = DirectX::XMLoadFloat4x4(&transform);
+
+	DirectX::XMMATRIX R = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
+
+	DirectX::XMMATRIX W = R * ST;
+
+	DirectX::XMStoreFloat4x4(&transform, W);
+
+	////スケール行列を作成
+	//DirectX::XMMATRIX S = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+	////回転行列を作成
+	//DirectX::XMMATRIX R = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
+	////位置行列を作成
+	//DirectX::XMMATRIX T = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+	////3つの行列を組み合わせ、ワールド行列を取り出す
+	//DirectX::XMMATRIX W = S * R * T;
+	////計算したワールド行列を取り出す
+	//DirectX::XMStoreFloat4x4(&transform, W);
 
 	//発射方向
 	this->direction = front;

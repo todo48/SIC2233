@@ -265,7 +265,7 @@ void Player::InputBall()
 	//投げる位置(デフォルトでは　S　の位置)
 	DirectX::XMFLOAT3 target;
 	target.x = 0;
-	target.y = 3.8;
+	target.y = 0;
 	target.z = 0;
 
 	//投げる位置を抽選
@@ -281,7 +281,7 @@ void Player::InputBall()
 		break;
 	case 1:
 		target.x = 0;
-		target.y = 1.50;
+		target.y = 2.5;
 		target.z = -20;
 		PitchZone = 1;
 		break;

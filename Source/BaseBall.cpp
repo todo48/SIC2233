@@ -26,6 +26,7 @@ BaseBall::~BaseBall()
 //XVˆ—
 void BaseBall::Update(float elapsedTime)
 {
+	angle.z += 0.4;
 	//õ–½ˆ—
 	//lifeTimer -= elapsedTime;
 	if (position.z < -10)
