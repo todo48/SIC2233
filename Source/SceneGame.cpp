@@ -5,6 +5,8 @@
 #include"BaseBall.h"
 #include"EffectManager.h"
 
+#include"StageManager.h"
+
 #include"Input/GamePad.h"
 #include"Input/Input.h"
 #include "SceneResult.h"

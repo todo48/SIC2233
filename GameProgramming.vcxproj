@@ -248,6 +248,7 @@
     <ClInclude Include="Source\SceneTitle.h" />
     <ClInclude Include="Source\ScoreManager.h" />
     <ClInclude Include="Source\Stage.h" />
+    <ClInclude Include="Source\StageManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="External\DirectXTex\WICTextureLoader.cpp" />
@@ -294,6 +295,7 @@
     <ClCompile Include="Source\SceneTitle.cpp" />
     <ClCompile Include="Source\ScoreManager.cpp" />
     <ClCompile Include="Source\Stage.cpp" />
+    <ClCompile Include="Source\StageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HLSL\Debug.hlsli" />

@@ -1,12 +1,36 @@
 #include"Stage.h"
 
+//行列更新
+void Stage::UpdateTransform()
+{
+	//スケール行列を作成
+	DirectX::XMMATRIX S = DirectX::XMMatrixScaling(scale.x, scale.y, scale.z);
+
+	//回転行列を作成
+	DirectX::XMMATRIX R = DirectX::XMMatrixRotationRollPitchYaw(angle.x, angle.y, angle.z);
+
+	//位置行列を作成
+	DirectX::XMMATRIX T = DirectX::XMMatrixTranslation(position.x, position.y, position.z);
+
+	//3つの行列を組み合わせ、ワールド行列を作成
+	DirectX::XMMATRIX W = S * R * T;
+
+	//計算したワールド行列を取り出す
+	DirectX::XMStoreFloat4x4(&transform, W);
+}
+
 //コンストラクタ
 Stage::Stage()
 {
 	//ステージモデルを読み込み
-	model = new Model("Data/Model/ExampleStage/ExampleStage.mdl");
+	model = new Model("Data/Model/Stage/Stage.mdl");
+	//model = new Model("Data/Model/ExampleStage/ExampleStage.mdl");
+
+	position.y = -10;
+	scale.x = scale.y = scale.z = 0.5;
 }
 
+//デストラクタ
 Stage::~Stage()
 {
 	//ステージモデルを破棄
@@ -17,6 +41,11 @@ Stage::~Stage()
 void Stage::Update(float elapsedTime)
 {
 	//今は特にやることがない
+	//オブジェクト行列を更新
+	UpdateTransform();
+
+	//モデル行列更新
+	model->UpdateTransform(transform);
 }
 
 //描画処理
