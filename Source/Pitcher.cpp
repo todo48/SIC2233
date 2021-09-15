@@ -16,7 +16,7 @@ Pitcher::Pitcher()
 	//モデルが大きいのでスケーリング
 	scale.x = scale.y = scale.z = 0.02f;
 	angle.y = 1.5708*2;
-	position = {0.3,0,30};
+	position = {0.7,0,30};
 }
 
 //デストラクタ
