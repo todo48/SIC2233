@@ -112,20 +112,44 @@ Sprite::Sprite(const char* filename)
 	{
 		D3D11_BLEND_DESC desc;
 		::memset(&desc, 0, sizeof(desc));
-		desc.AlphaToCoverageEnable = false;
-		desc.IndependentBlendEnable = false;
-		desc.RenderTarget[0].BlendEnable = true;
+		
+		
+		
+		
+		
+		//desc.AlphaToCoverageEnable = false;
+		//desc.IndependentBlendEnable = false;
+		//desc.RenderTarget[0].BlendEnable = true;
+		//desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		//desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		//desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		//desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		//desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		//desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		//desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		//
+		//HRESULT hr = device->CreateBlendState(&desc, blendState.GetAddressOf());
+		//_ASSERT_EXPR(SUCCEEDED(hr), HRTrace(hr));
+
+
+		//アルファ
+		desc.AlphaToCoverageEnable = FALSE;
+		desc.IndependentBlendEnable = FALSE;
+		desc.RenderTarget[0].BlendEnable = TRUE;
 		desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+		desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_SRC_ALPHA;
 		desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
 		HRESULT hr = device->CreateBlendState(&desc, blendState.GetAddressOf());
 		_ASSERT_EXPR(SUCCEEDED(hr), HRTrace(hr));
+
+		//hr = device->CreateBlendState(&blend_desc, blend_states[1].GetAddressOf());
+		//_ASSERT_EXPR(SUCCEEDED(hr), hr_trace(hr));
 	}
+	
 
 	// 深度ステンシルステート
 	{
