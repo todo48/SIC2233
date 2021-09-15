@@ -64,19 +64,7 @@ void Player::Update(float elapsedTime)
 			LaunchReady = true;
 		}
 	}
-	//ボール更新処理
-	ballManager.Update(elapsedTime);
 
-	HitChecktoBall();
-
-	//速度処理更新
-	UpdateVelocity(elapsedTime);
-
-	//オブジェクト行列を更新
-	UpdateTransform();
-	
-	//モデル行列更新
-	model->UpdateTransform(transform);
 	if (ballManager.GetBallCount() > 0)
 	{
 		BaseBall* baseball = dynamic_cast<BaseBall*>(ballManager.GetBall(0));
@@ -109,12 +97,28 @@ void Player::Update(float elapsedTime)
 				LaunchReady_2 = false;
 				ScoreManager::Instance().Score++;
 			}
-			else if (baseball->GetPosition().z == -5)
+			else if (SwingZone != PitchZone && baseball->GetPosition().z < -10)
 			{
 				ScoreManager::Instance().Strike++;
 			}
 		}
 	}
+
+
+	//ボール更新処理
+	ballManager.Update(elapsedTime);
+
+	HitChecktoBall();
+
+	//速度処理更新
+	UpdateVelocity(elapsedTime);
+
+	//オブジェクト行列を更新
+	UpdateTransform();
+	
+	//モデル行列更新
+	model->UpdateTransform(transform);
+	
 	
 	
 
@@ -175,7 +179,8 @@ void Player::InputMove(float elapsedTime)
 		{
 			isSwing = true;
 			SwingZone = 1;
-				ScoreManager::Instance().Score++;
+			ScoreManager::Instance().Score++;
+			ScoreManager::Instance().Strike++;
 			
 		}
 		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
