@@ -6,7 +6,7 @@
 #include"ProjectileManager.h"
 #include "Effect.h"
 #include"BallManager.h"
-
+#include"Audio/Audio.h"
 //ÉvÉåÉCÉÑÅ[
 class Player : public Character
 {
@@ -57,6 +57,11 @@ private:
 	//void CollisionPlayerVsEnemies();
 
 	//ProjectileManager projectileManager;
+public:
+	// SE
+	std::unique_ptr<AudioSource> Swing;
+	std::unique_ptr<AudioSource> Hit;
+	std::unique_ptr<AudioSource> Ballcatch;
 
 private:
 	Model* model = nullptr;

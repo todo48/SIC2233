@@ -20,6 +20,8 @@ Player::Player()
 {
 	model = new Model("Data/Model/Mr.Incredible/Mr.Incredible.mdl");
 
+
+
 	hiteffect = new Effect("Data/Effect/NewHit.efk");
 	//モデルが大きいのでスケーリング
 	scale.x = scale.y = scale.z = 0.01f;
@@ -99,8 +101,12 @@ void Player::Update(float elapsedTime)
 		if (baseball)
 		{
 			//ヒット
-			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z + 2 && baseball->GetPosition().z < position.z + 7)
+			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z + 2 && baseball->GetPosition().z < position.z + 5)
 			{
+				// SE
+				Hit = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Hit.wav", false);
+				Hit->Play();
+				
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				HitPosition = baseball->GetPosition();
 				baseball->Destroy();
@@ -127,9 +133,17 @@ void Player::Update(float elapsedTime)
 			}
 
 			//ストライク
-			if (SwingZone != PitchZone && baseball->GetPosition().z < -10 && PitchZone != 0)
+			if (SwingZone != PitchZone && baseball->GetPosition().z < -3 && PitchZone != 0)
 			{
+				// SE
+				Ballcatch = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Ballcatch.wav", false);
+				Ballcatch->Play();
+				
 				ScoreManager::Instance().Strike++;
+				/*if (ScoreManager::Instance().Strike > 2)
+				{
+					ScoreManager::Instance().Strike = 2;
+				}*/
 				Launch_Timer += 180;
 			}
 		}
@@ -209,46 +223,64 @@ void Player::InputMove(float elapsedTime)
 		{
 			if (gamePad.GetButtonDown() & GamePad::BTN_Z)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 1;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_X)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 2;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_C)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 3;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_A)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 4;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_S)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 5;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_D)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 6;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_Q)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 7;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_W)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 8;
 				PushButton = true;
 			}
 			if (gamePad.GetButtonDown() & GamePad::BTN_E)
 			{
+				Swing = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Swing.wav", false);
+				Swing->Play();
 				SwingZone = 9;
 				PushButton = true;
 			}

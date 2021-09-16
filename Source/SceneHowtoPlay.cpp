@@ -7,6 +7,8 @@
 //初期化
 void SceneHowtoPlay::Initialize()
 {
+    Tutorial = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Tutorial.wav", true);
+
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/Howtoplay.png");
     title_timer = 26;
@@ -26,6 +28,7 @@ void  SceneHowtoPlay::Finalize()
 //更新処理
 void SceneHowtoPlay::Update(float elapsedTime)
 {
+    Tutorial->Play();
     GamePad& gamePad = Input::Instance().GetGamePad();
     // BGM
        //なにかボタンを押したら次のシーンへ切り替え

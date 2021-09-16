@@ -29,7 +29,7 @@ void BaseBall::Update(float elapsedTime)
 	angle.z += 0.4;
 	//õ–½ˆ—
 	//lifeTimer -= elapsedTime;
-	if (position.z < -10 || position.z > 20 && position.y > 10)
+	if (position.z < -3 || position.z > 20 && position.y > 10)
 	{
 		//©•ª‚ğíœ
 		Destroy();	

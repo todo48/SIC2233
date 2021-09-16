@@ -51,7 +51,9 @@ private:
 	Ball* ball = nullptr;
 
 	CameraController* cameraController = nullptr;
-	
+
+	float StrikeTimer = 10;
+
 
 	Sprite* scenegame_s0_ui = nullptr;
 	Sprite* scenegame_s1_ui = nullptr;

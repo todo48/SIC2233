@@ -111,7 +111,7 @@ void SceneGame::Update(float elapsedTime)
 	pitcher->Update(elapsedTime);
 
 	// BGM
-	//Game->Play();
+	Game->Play();
 
 	//カメラコントローラー更新処理
 	DirectX::XMFLOAT3 eye = player->GetPosition();
@@ -134,9 +134,13 @@ void SceneGame::Update(float elapsedTime)
 	//}
 	if (ScoreManager::Instance().Strike == 3)
 	{
-		ScoreManager::Instance().AddScore(ScoreManager::Instance().Score);
+		StrikeTimer--;
+		if (StrikeTimer < 0)
+		{
+			ScoreManager::Instance().AddScore(ScoreManager::Instance().Score);
 
-		SceneManager::Instance().ChangeScene(new SceneResult);
+			SceneManager::Instance().ChangeScene(new SceneResult);
+		}
 	}
 
 
@@ -222,6 +226,18 @@ void SceneGame::Render()
 			0,
 			1, 1, 1, 1);
 	}
+	if (ScoreManager::Instance().Strike == 3)
+	{
+		float screenWidth	 = static_cast<float>(graphics.GetScreenWidth());
+		float screenHeight	 = static_cast<float>(graphics.GetScreenHeight());
+		float textureWidth	 = static_cast<float>(scenegame_s2_ui->GetTextureWidth());
+		float textureHeight	 = static_cast<float>(scenegame_s2_ui->GetTextureHeight());
+		scenegame_s2_ui->Render(dc,
+			0, 0, screenWidth, screenHeight,
+			0, 0, textureWidth, textureHeight,
+			0,
+			1, 1, 1, 1);
+	}
 
 
 
@@ -233,10 +249,10 @@ void SceneGame::Render()
 	// 3Dデバッグ描画
 	{
 		//プレイヤーデバッグプリミティブ描画
-		player->DrawDebugPrimitive();
+		//player->DrawDebugPrimitive();
 
 		//ピッチャーデバッグプリミティブ描画
-		pitcher->DrawDebugPrimitive();
+		//pitcher->DrawDebugPrimitive();
 
 		// ラインレンダラ描画実行
 		//graphics.GetLineRenderer()->Render(dc, rc.view, rc.projection);
@@ -263,6 +279,6 @@ void SceneGame::Render()
 
 	// 2DデバッグGUI描画
 	{
-		player->DrawDebugGUI();
+		//player->DrawDebugGUI();
 	}
 }

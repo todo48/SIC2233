@@ -28,6 +28,8 @@ public:
 public:
     int state = 0;
     int title_timer = 0;
+
+    std::unique_ptr<AudioSource> Tutorial;
 private:
     Sprite* sprite = nullptr;
 };
