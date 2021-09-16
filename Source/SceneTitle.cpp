@@ -4,12 +4,14 @@
 #include "SceneManager.h"
 #include "Input/Input.h"
 #include "SceneLoading.h"
-
+#include "SceneResult.h"
+#include "SceneHowtoPlay.h"
 //初期化
 void SceneTitle::Initialize()
 {
     //スプライト初期化
     sprite = new Sprite("Data/Sprite/Title.png");
+   // sprite = new Sprite("Data/Sprite/StageBackground.png");
 
     // Audio初期化
     Title = Audio::Instance().LoadAudioSource(".\\Data\\Audio\\Title.wav", true);
@@ -33,37 +35,63 @@ void  SceneTitle::Finalize()
 //更新処理
 void SceneTitle::Update(float elapsedTime)
 {
-    GamePad& gamePad = Input::Instance().GetGamePad();
-
-    //なにかボタンを押したら次のシーンへ切り替え
-    const GamePadButton anyButton =
-        GamePad::BTN_Q | GamePad::BTN_W | GamePad::BTN_E |
-        GamePad::BTN_A | GamePad::BTN_S | GamePad::BTN_D |
-        GamePad::BTN_Z | GamePad::BTN_X | GamePad::BTN_C;
-
-
     // BGM
     Title->Play();
     
+    GamePad& gamePad = Input::Instance().GetGamePad();
     switch (state)
     {
     case 0:
-        if (gamePad.GetButtonDown() & anyButton)
+        // ゲームに移動
+        if (gamePad.GetButtonDown() & GamePad::BTN_W)
         {
             // SE
             GameStart->Play();
-        
-            state++;
+
+            state = 1;
+        }
+        // 操作説明に移動
+        if (gamePad.GetButtonDown() & GamePad::BTN_S)
+        {
+            // SE
+            GameStart->Play();
+
+            state = 2;
+        }
+
+        // リザルトに移動
+        if (gamePad.GetButtonDown() & GamePad::BTN_X)
+        {
+            // SE
+            GameStart->Play();
+
+            state = 3;
         }
 
         break;
     case 1:
-            title_timer--;
+        title_timer--;
         if (title_timer < 0)
         {
             SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
-            break;
         }
+        break;
+    case 2:
+        title_timer--;
+        if (title_timer < 0)
+        {
+            SceneManager::Instance().ChangeScene(new SceneHowtoPlay);
+        }        
+        break;
+
+    case 3:
+        title_timer--;
+        if (title_timer < 0)
+        {
+     
+            SceneManager::Instance().ChangeScene(new SceneResult);
+        }     
+        break;
 
     }
 }

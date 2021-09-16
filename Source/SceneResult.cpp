@@ -48,7 +48,7 @@ void SceneResult::Update(float elapsedTime)
             // SE
             GameStart->Play();
 
-            state += 1;
+            state = 1;
         }
         // ƒQ[ƒ€‚É–ß‚é
         if (gamePad.GetButtonDown() & GamePad::BTN_SPACE)
@@ -56,7 +56,7 @@ void SceneResult::Update(float elapsedTime)
             // SE
             GameStart->Play();
 
-            state += 2;
+            state = 2;
         }
         break;
     case 1:
@@ -115,17 +115,37 @@ void SceneResult::Render()
             1, 1, 1, 1);
 
         //sprites[0]->textout(dc, i, 0, 0, 16, 16, 1, 1, 1, 1);
-        sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 850 -190, 235 -40 , 65, 65, 1, 1, 1, 1);
-       
 
-        for (int i = 0; i < ScoreManager::Instance().Size(); ++i) {
+#if 1 //1920 ~ 1080
+        sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 
+            850 , 235  ,
+            100, 100,
+            1, 1, 1, 1);     
+
+        for (int i = 0; i < ScoreManager::Instance().Size(); ++i) 
+        {
             sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().GetRankingScore(i)),
-                850 - 190 , 380 + (140 * i), 
+                850 , 460 + (175 * i), 
+                100, 100,
+                1, 1, 1, 1);
+            if (i == 2)
+                break;
+        }
+#else // 1280 x 720
+        sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 
+            550, 163,
+            65, 65,
+            1, 1, 1, 1);
+
+        for (int i = 0; i < ScoreManager::Instance().Size(); ++i)
+        {
+            sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().GetRankingScore(i)),
+                550, 317 + (119 * i),
                 65, 65,
                 1, 1, 1, 1);
             if (i == 2)
                 break;
         }
-
+#endif 
     }
 }

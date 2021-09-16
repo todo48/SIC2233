@@ -28,6 +28,6 @@ private:
 
 private:
 	Sprite* sprite = nullptr;
-	float angle = 0.0f;
+//	float angle = 0.0f;
 	Scene* nextScene = nullptr;
 };

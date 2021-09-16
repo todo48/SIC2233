@@ -246,7 +246,21 @@ void SceneGame::Render()
 	}
 
 	
-	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 180, 40, 75, 75, 1, 1, 1, 1);
+
+
+#if 1
+	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score),
+		210, 53,
+		75, 75,
+		1, 1, 1, 1);
+
+#else
+	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score),
+		140, 37,
+		50, 50,
+		1, 1, 1, 1);
+#endif
+
 	// 2DデバッグGUI描画
 	{
 		player->DrawDebugGUI();

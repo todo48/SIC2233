@@ -6,7 +6,10 @@
 #include "Graphics/Graphics.h"
 #include "Input/input.h"
 
-#if 0 //ウィンドウのサイズ
+
+//ウィンドウのサイズ変更に伴うその他の変更...SceneGame.cpp,SceneRsult.cpp　全て"#if"の後の数字をそろえること
+// 0 or 1
+#if 1
 CONST LONG SCREEN_WIDTH{ 1920 };
 CONST LONG SCREEN_HEIGHT{ 1080 };
 #else

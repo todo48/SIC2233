@@ -43,10 +43,13 @@ public:
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> immediate_context;
 	std::unique_ptr<Sprite>sprites[8];
 private:
+	Sprite* StageBackground = nullptr;
+
 	Stage* stage = nullptr;
 	Player* player = nullptr;
 	Pitcher* pitcher = nullptr;
 	Ball* ball = nullptr;
+
 	CameraController* cameraController = nullptr;
 	
 
