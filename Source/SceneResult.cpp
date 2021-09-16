@@ -107,6 +107,10 @@ void SceneResult::Render()
         float screenHeight = static_cast<float>(graphics.GetScreenHeight());
         float textureWidth = static_cast<float>(Result->GetTextureWidth());
         float textureHeight = static_cast<float>(Result->GetTextureHeight());
+        //float screenWidth = 1920;
+        //float screenHeight = 1080;
+        //float textureWidth = 1920*2;
+        //float textureHeight = 1080*2;
         //タイトルスプライト描画
         Result->Render(dc,
             0, 0, screenWidth, screenHeight,
@@ -118,14 +122,14 @@ void SceneResult::Render()
 
 #if 1 //1920 × 1080
         sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score), 
-            850 , 235  ,
+            850-200 , 235-55  ,
             100, 100,
             1, 1, 1, 1);     
 
         for (int i = 0; i < ScoreManager::Instance().Size(); ++i) 
         {
             sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().GetRankingScore(i)),
-                850 , 460 + (175 * i), 
+                850-200 , 460 - 100 + ((175 -35) * i), 
                 100, 100,
                 1, 1, 1, 1);
             if (i == 2)

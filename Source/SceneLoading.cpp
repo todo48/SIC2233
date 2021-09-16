@@ -36,11 +36,11 @@ void  SceneLoading::Update(float elapsedTime)
     angle += speed * elapsedTime;*/
 
     //次のシーンの準備が完了したらシーンを切り替える
-    if(nextScene->IsReady())
-    {
-        SceneManager::Instance().ChangeScene(nextScene);
-        nextScene = nullptr;
-    }
+    //if(nextScene->IsReady())
+    //{
+    //    SceneManager::Instance().ChangeScene(nextScene);
+    //    nextScene = nullptr;
+    //}
 }
 
 //描画処理
@@ -60,12 +60,12 @@ void SceneLoading::Render()
     //2Dスプライト描画
     {
         //画面右上にローディングアイコンを描画
-        float screenWidth = static_cast<float>(graphics.GetScreenWidth());
-        float screenHeight = static_cast<float>(graphics.GetScreenHeight());
-        float textureWidth = static_cast<float>(sprite->GetTextureWidth());
-        float textureHeight = static_cast<float>(sprite->GetTextureHeight());
-        float positionX = screenWidth - textureWidth;
-        float positionY = screenHeight - textureHeight;
+        float screenWidth = 1920;
+        float screenHeight = 1080;
+        float textureWidth = 1920;
+        float textureHeight = 1080;
+        float positionX = -150;
+        float positionY = 0;
 
         //タイトルスプライト描画
         sprite->Render(dc,

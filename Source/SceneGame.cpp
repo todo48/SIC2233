@@ -266,8 +266,8 @@ void SceneGame::Render()
 
 #if 1
 	sprites[0]->textout(dc, std::to_string(ScoreManager::Instance().Score),
-		210, 53,
-		75, 75,
+		210 - 50, 53 - 5,
+		75 - 25, 75 - 25,
 		1, 1, 1, 1);
 
 #else

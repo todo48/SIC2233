@@ -73,7 +73,7 @@ void SceneTitle::Update(float elapsedTime)
         title_timer--;
         if (title_timer < 0)
         {
-            SceneManager::Instance().ChangeScene(new SceneLoading(new SceneGame));
+            SceneManager::Instance().ChangeScene(new SceneGame);
         }
         break;
     case 2:
