@@ -8,7 +8,8 @@
 void SceneLoading::Initialize()
 {
     //スプライト初期化
-    sprite = new Sprite("Data/Sprite/LoadingIcon.png");
+    sprite = new Sprite("Data/Sprite/Howtoplay.png");
+ 
 
     //スレッド開始
     std::thread thread(LoadingThread, this);
@@ -31,8 +32,8 @@ void SceneLoading::Finalize()
 //更新処理
 void  SceneLoading::Update(float elapsedTime)
 {
-    constexpr float speed = 180;
-    angle += speed * elapsedTime;
+   /* constexpr float speed = 180;
+    angle += speed * elapsedTime;*/
 
     //次のシーンの準備が完了したらシーンを切り替える
     if(nextScene->IsReady())
@@ -70,7 +71,7 @@ void SceneLoading::Render()
         sprite->Render(dc,
             positionX, positionY, textureWidth, textureHeight,
             0, 0, textureWidth, textureHeight,
-            angle,
+           0,
             1, 1, 1, 1);
     }
 }
