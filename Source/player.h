@@ -67,8 +67,8 @@ private:
 
 	int SwingZone = 0;
 	int PitchZone = 0;
-	bool isSwing = false;
-	float Launch_Timer = 60;
+	bool IsSwing = false;
+	float Launch_Timer = 300;
 	float Launch_Timer_2 = 300;
 	float SwingTimer = 0;
 

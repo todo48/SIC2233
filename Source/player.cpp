@@ -48,7 +48,6 @@ void Player::Update(float elapsedTime)
 	////弾丸と球の衝突処理
 	//CollisionProjectilesVsEnemies();
 
-	SwingZone = 0;
 	InputMove(elapsedTime);
 
 	//ボール発射処理
@@ -60,22 +59,22 @@ void Player::Update(float elapsedTime)
 		Launch_Timer--;
 		if (Launch_Timer < 0)
 		{
-			Launch_Timer = 300;
+			Launch_Timer += 500;
 			LaunchReady = true;
 		}
 	}
 
 
-	if (isSwing == true)
-	{
-		SwingTimer = 120;
-		SwingTimer--;
-	}
+	//if (IsSwing == true)
+	//{
+	//	SwingTimer = 120;
+	//	SwingTimer--;
+	//}
 
-	if (SwingTimer < 0.1)
-	{
-		isSwing = false;
-	}
+	//if (SwingTimer < 0.1)
+	//{
+	//	IsSwing = false;
+	//}
 
 
 	if (ballManager.GetBallCount() > 0)
@@ -84,7 +83,7 @@ void Player::Update(float elapsedTime)
 		if (baseball)
 		{
 			//ヒット
-			if (isSwing == true && SwingZone == PitchZone && baseball->GetPosition().z > position.z +2 && baseball->GetPosition().z < position.z + 7)
+			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z +2 && baseball->GetPosition().z < position.z + 7)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				HitPosition = baseball->GetPosition();
@@ -113,9 +112,9 @@ void Player::Update(float elapsedTime)
 			}
 
 			//ストライク
-			if (SwingZone != PitchZone && baseball->GetPosition().z < -10)
+			if (SwingZone != PitchZone && baseball->GetPosition().z < -10 && PitchZone != 0)
 			{
-				ScoreManager::Instance().Strike++;
+				//ScoreManager::Instance().Strike++;
 			}
 		}
 	}
@@ -174,6 +173,10 @@ void Player::DrawDebugGUI()
 			angle.z = DirectX::XMConvertToRadians(a.z);
 			//スケール
 			ImGui::InputFloat3("Scale", &scale.x);
+			ImGui::InputInt("Swing", &SwingZone);
+			ImGui::InputInt("Pitch", &PitchZone);
+
+			ImGui::InputFloat("Pitch", &Launch_Timer);
 		}
 	}
 	ImGui::End();
@@ -184,65 +187,46 @@ void Player::InputMove(float elapsedTime)
 	//進行ベクトル取得
 	DirectX::XMFLOAT3 moveVec = GetMoveVec();
 	//移動処理
-	Move(moveVec.x, moveVec.z, moveSpeed);
+	//Move(moveVec.x, moveVec.z, moveSpeed);
 	//旋回処理
-	Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
+	//Turn(elapsedTime, moveVec.x, moveVec.z, turnSpeed);
 
 	GamePad& gamePad = Input::Instance().GetGamePad();
 	{
 		if (gamePad.GetButtonDown() & GamePad::BTN_Z)
 		{
-			if(SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 1;
-			ScoreManager::Instance().Score++;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_X)
+		if (gamePad.GetButtonDown() & GamePad::BTN_X)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 2;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_C)
+		if (gamePad.GetButtonDown() & GamePad::BTN_C)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 3;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_A)
+		if (gamePad.GetButtonDown() & GamePad::BTN_A)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 4;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_S)
+		if (gamePad.GetButtonDown() & GamePad::BTN_S)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 5;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_D)
+		if (gamePad.GetButtonDown() & GamePad::BTN_D)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 6;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_Q)
+		if (gamePad.GetButtonDown() & GamePad::BTN_Q)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 7;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_W)
+		if (gamePad.GetButtonDown() & GamePad::BTN_W)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 8;
 		}
-		else if (gamePad.GetButtonDown() & GamePad::BTN_E)
+		if (gamePad.GetButtonDown() & GamePad::BTN_E)
 		{
-			if (SwingTimer < 0.1)
-			isSwing = true;
 			SwingZone = 9;
 		}
 	}
@@ -271,176 +255,107 @@ void Player::InputBall()
 
 	//投げる位置を抽選
 	//ストライク
-	//int a = rand() % 10;
-	int a = 1;
+	int a = rand() % 10;
 	//ボール球
-	int b = 18;
+	int b = rand() % 7;
 	switch (a)
 	{
 	case 0:
-		b = rand() % 17;
+		switch (b)
+		{
+		case 0:
+			target.x = -4.8;
+			target.y = 0.15;
+			target.z = -20;
+			break;
+		case 1:
+			target.x = 4.8;
+			target.y = 0.15;
+			target.z = -20;
+			break;
+		case 2:
+			target.x = -4.8;
+			target.y = 1.85;
+			target.z = -20;
+			break;
+		case 3:
+			target.x = 4.8;
+			target.y = 1.85;
+			target.z = -20;
+			break;
+		case 4:
+			target.x = -4.8;
+			target.y = 2.55;
+			target.z = -20;
+			break;
+		case 5:
+			target.x = 4.8;
+			target.y = 2.55;
+			target.z = -20;
+			break;
+		case 6:
+			target.x = 0;
+			target.y = 6.55;
+			target.z = -20;
+			break;
+		}
 		break;
 	case 1:
-		target.x = 0;
-		target.y = 2.5;
+		target.x = -0.8;
+		target.y = 1.15;
 		target.z = -20;
 		PitchZone = 1;
 		break;
 	case 2:
 		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.y = 1.15;
+		target.z = -20;
 		PitchZone = 2;
 		break;
 	case 3:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.x = 0.8;
+		target.y = 1.15;
+		target.z = -20;
 		PitchZone = 3;
 		break;
 	case 4:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.x = -0.8;
+		target.y = 1.85;
+		target.z = -20;
 		PitchZone = 4;
 		break;
 	case 5:
 		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.y = 1.85;
+		target.z = -20;
 		PitchZone = 5;
 		break;
 	case 6:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.x = 0.8;
+		target.y = 1.85;
+		target.z = -20;
 		PitchZone = 6;
 		break;
 	case 7:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.x = -0.8;
+		target.y = 2.55;
+		target.z = -20;
 		PitchZone = 7;
 		break;
 	case 8:
 		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.y = 2.55;
+		target.z = -20;
 		PitchZone = 8;
 		break;
 	case 9:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
+		target.x = 0.8;
+		target.y = 2.55;
+		target.z = -20;
 		PitchZone = 9;
 		break;
 	}
 
-	switch (b)
-	{
-	case 0:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 1:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 2:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 3:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 4:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 5:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 6:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 7:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 8:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 9:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 10:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 11:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 12:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 13:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 14:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 15:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	case 16:
-		target.x = 0;
-		target.y = 1.75;
-		target.z = 0;
-		PitchZone = 0;
-		break;
-	}
 
 	DirectX::XMVECTOR PitchPos = { 0,1.5,50 };
 	DirectX::XMVECTOR ZonePos = { 0,0,0 };
