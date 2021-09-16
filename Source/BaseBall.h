@@ -21,14 +21,16 @@ public:
 	(
 		const DirectX::XMFLOAT3& direction,
 		const DirectX::XMFLOAT3& position,
-		const DirectX::XMFLOAT3& target
+		const DirectX::XMFLOAT3& target,
+		const float speed
 	);
 
 	void Launch2
 	(
 		const DirectX::XMFLOAT3& direction,
 		const DirectX::XMFLOAT3& position,
-		const DirectX::XMFLOAT3& target
+		const DirectX::XMFLOAT3& target,
+		const float speed
 	);
 
 

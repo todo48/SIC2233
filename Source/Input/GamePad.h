@@ -3,6 +3,7 @@
 using GamePadButton = unsigned int;
 
 // ゲームパッド
+
 class GamePad
 {
 public:

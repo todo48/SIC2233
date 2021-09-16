@@ -29,7 +29,7 @@ void BaseBall::Update(float elapsedTime)
 	angle.z += 0.4;
 	//õ–½ˆ—
 	//lifeTimer -= elapsedTime;
-	if (position.z < -10)
+	if (position.z < -10 || position.z > 20 && position.y > 10)
 	{
 		//©•ª‚ğíœ
 		Destroy();	
@@ -115,26 +115,28 @@ void BaseBall::Render(ID3D11DeviceContext* dc, Shader* shader)
 void BaseBall::Launch(
 	const DirectX::XMFLOAT3& direction,
 	const DirectX::XMFLOAT3& position,
-	const DirectX::XMFLOAT3& target)
+	const DirectX::XMFLOAT3& target,
+	const float speed)
 {
 	this->direction = direction;
 	this->position = position;
 	this->target = target;
+	moveSpeed = speed;
 
 	UpdateTransform();
-	moveSpeed += 0.5f;
 }
 
 void BaseBall::Launch2(
 	const DirectX::XMFLOAT3& direction,
 	const DirectX::XMFLOAT3& position,
-	const DirectX::XMFLOAT3& target)
+	const DirectX::XMFLOAT3& target,
+	const float speed)
 {
 	this->direction = direction;
 	this->position = position;
 	this->target = target;
+	moveSpeed = speed;
 
 	UpdateTransform();
-	moveSpeed += 0.5f;
 }
 

@@ -1,4 +1,6 @@
 #include<imgui.h>
+#include <stdio.h>
+#include <time.h>
 #include"player.h"
 #include"Input/Input.h"
 #include"Camera.h"
@@ -21,6 +23,7 @@ Player::Player()
 	hiteffect = new Effect("Data/Effect/NewHit.efk");
 	//モデルが大きいのでスケーリング
 	scale.x = scale.y = scale.z = 0.01f;
+	InputTimer = 60;
 }
 
 //デストラクタ
@@ -48,19 +51,32 @@ void Player::Update(float elapsedTime)
 	////弾丸と球の衝突処理
 	//CollisionProjectilesVsEnemies();
 
+
+	SwingZone = 0;
+
 	InputMove(elapsedTime);
 
 	//ボール発射処理
-	if(LaunchReady == true)
-	InputBall();
+	if (LaunchReady == true)
+		InputBall();
+
 	//発射準備
-	if (LaunchReady == false)
+	if(Launch_Timer > 0)
 	{
 		Launch_Timer--;
-		if (Launch_Timer < 0)
+		if (Launch_Timer == 0)
 		{
-			Launch_Timer += 500;
 			LaunchReady = true;
+		}
+	}
+
+	if (PushButton == true)
+	{
+		InputTimer--;
+		if (InputTimer == 0)
+		{
+			PushButton = false;
+			InputTimer += 60;
 		}
 	}
 
@@ -83,7 +99,7 @@ void Player::Update(float elapsedTime)
 		if (baseball)
 		{
 			//ヒット
-			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z +2 && baseball->GetPosition().z < position.z + 7)
+			if (SwingZone == PitchZone && baseball->GetPosition().z > position.z + 2 && baseball->GetPosition().z < position.z + 7)
 			{
 				BaseBall* baseball_2 = new BaseBall(&ballManager);
 				HitPosition = baseball->GetPosition();
@@ -100,25 +116,24 @@ void Player::Update(float elapsedTime)
 				//投げる位置(デフォルトでは　S　の位置)
 				DirectX::XMFLOAT3 target_2;
 				target_2.x = 0;
-				target_2.y = 10;
-				target_2.z = 10;
-				DirectX::XMVECTOR PitchPos_2 = { 0,1.5,50 };
-				DirectX::XMVECTOR ZonePos_2 = { 0,0,0 };
-				DirectX::XMVECTOR V_2 = DirectX::XMVectorSubtract(ZonePos_2, PitchPos_2);
-				DirectX::XMVECTOR R_2 = DirectX::XMVector3LengthSq(V_2);
-				ScoreCount++;
-				baseball_2->Launch2(dir_2, pos_2, target_2);
+				target_2.y = 20;
+				target_2.z = 50;
+
+				baseball_2->Launch2(dir_2, pos_2, target_2,speed2);
 				ScoreManager::Instance().Score++;
+
+				speed2++;
+				Launch_Timer += 180;
 			}
 
 			//ストライク
 			if (SwingZone != PitchZone && baseball->GetPosition().z < -10 && PitchZone != 0)
 			{
-				//ScoreManager::Instance().Strike++;
+				ScoreManager::Instance().Strike++;
+				Launch_Timer += 180;
 			}
 		}
 	}
-
 
 	//ボール更新処理
 	ballManager.Update(elapsedTime);
@@ -129,14 +144,10 @@ void Player::Update(float elapsedTime)
 
 	//オブジェクト行列を更新
 	UpdateTransform();
-	
+
 	//モデル行列更新
 	model->UpdateTransform(transform);
-	
-	
-	
-
-}	
+}
 
 void Player::Render(ID3D11DeviceContext* dc, Shader* shader)
 {
@@ -176,7 +187,8 @@ void Player::DrawDebugGUI()
 			ImGui::InputInt("Swing", &SwingZone);
 			ImGui::InputInt("Pitch", &PitchZone);
 
-			ImGui::InputFloat("Pitch", &Launch_Timer);
+			ImGui::InputFloat("PitchTimer", &Launch_Timer);
+			ImGui::InputFloat("InputTimer", &InputTimer);
 		}
 	}
 	ImGui::End();
@@ -193,41 +205,53 @@ void Player::InputMove(float elapsedTime)
 
 	GamePad& gamePad = Input::Instance().GetGamePad();
 	{
-		if (gamePad.GetButtonDown() & GamePad::BTN_Z)
+		if (/*InputTimer == 0 || */InputTimer == 60)
 		{
-			SwingZone = 1;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_X)
-		{
-			SwingZone = 2;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_C)
-		{
-			SwingZone = 3;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_A)
-		{
-			SwingZone = 4;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_S)
-		{
-			SwingZone = 5;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_D)
-		{
-			SwingZone = 6;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_Q)
-		{
-			SwingZone = 7;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_W)
-		{
-			SwingZone = 8;
-		}
-		if (gamePad.GetButtonDown() & GamePad::BTN_E)
-		{
-			SwingZone = 9;
+			if (gamePad.GetButtonDown() & GamePad::BTN_Z)
+			{
+				SwingZone = 1;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_X)
+			{
+				SwingZone = 2;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_C)
+			{
+				SwingZone = 3;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_A)
+			{
+				SwingZone = 4;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_S)
+			{
+				SwingZone = 5;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_D)
+			{
+				SwingZone = 6;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_Q)
+			{
+				SwingZone = 7;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_W)
+			{
+				SwingZone = 8;
+				PushButton = true;
+			}
+			if (gamePad.GetButtonDown() & GamePad::BTN_E)
+			{
+				SwingZone = 9;
+				PushButton = true;
+			}
 		}
 	}
 }
@@ -255,8 +279,10 @@ void Player::InputBall()
 
 	//投げる位置を抽選
 	//ストライク
+	srand((unsigned int)time(NULL));
 	int a = rand() % 10;
 	//ボール球
+	srand((unsigned int)time(NULL));
 	int b = rand() % 7;
 	switch (a)
 	{
@@ -299,7 +325,6 @@ void Player::InputBall()
 			target.z = -20;
 			break;
 		}
-		break;
 	case 1:
 		target.x = -0.8;
 		target.y = 1.15;
@@ -363,8 +388,9 @@ void Player::InputBall()
 	DirectX::XMVECTOR R = DirectX::XMVector3LengthSq(V);
 
 	//発射
-	baseball->Launch(dir, pos, target);
+	baseball->Launch(dir, pos, target,speed);
 	LaunchReady = false;
+	speed++;
 }
 
 DirectX::XMFLOAT3 Player::GetMoveVec()const

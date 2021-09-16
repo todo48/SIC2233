@@ -43,6 +43,8 @@ public:
 
 	static int ScoreCount;
 
+	float speed = 5.0f;
+	float speed2 = 5.0f;
 protected:
 	void OnLanding() override;
 
@@ -65,10 +67,13 @@ private:
 	int   jumpCount = 0;
 	int   jumpLimit = 2;
 
+	float InputTimer = 0;
+	bool PushButton = false;
+
 	int SwingZone = 0;
 	int PitchZone = 0;
 	bool IsSwing = false;
-	float Launch_Timer = 300;
+	float Launch_Timer = 0;
 	float Launch_Timer_2 = 300;
 	float SwingTimer = 0;
 

@@ -4,6 +4,7 @@
 #include "Input/GamePad.h"
 
 // XV
+
 void GamePad::Update()
 {
 	axisLx = axisLy = 0.0f;
